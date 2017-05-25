@@ -1,4 +1,6 @@
+import os
 import json
+import re
 from nbgit.config import *
 
 
@@ -7,13 +9,14 @@ class NB2Py(object):
         Args:
             path: <str> path to file
     """
-    def __init__(self, path,py_path=None):
+    def __init__(self,path,py_path=None):
         self.path=path
-        self.py_path=py_path or self.path.replace('.ipynb','.py')
+        self.py_path=py_path or self._pypath()
 
 
     def convert(self):
         """ converts ipynb to .py """
+        if CREATE_DIRS: self._mkdirs()
         with open(self.path,'r') as notebook_file:
             self.notebook_dict=json.load(notebook_file)
             with open(self.py_path,'w') as py_file:
@@ -62,6 +65,25 @@ class NB2Py(object):
                     lines.append(CODE_END)       
         return lines
 
+
+    def _pypath(self):
+        py_path=re.sub('.ipynb$','.py',self.path)
+        if NBPY_DIR:
+            py_name=os.path.basename(py_path)
+            py_path=os.path.join(NBPY_DIR,py_name)
+        return py_path
+
+    
+    def _mkdirs(self):
+        """ Make parent dirs if they dont exist
+        """
+        if not os.path.exists(os.path.dirname(self.py_path)):
+            try:
+                os.makedirs(os.path.dirname(self.py_path))
+            except OSError as exc:
+                if exc.errno != errno.EEXIST:
+                    raise
+    
 
     def _outputs(self,cell):
         lines=[]

@@ -1,0 +1,8 @@
+setup.cfg
+nbgit/__init__.py
+nbgit/config.py
+nbgit/converter.py
+nbgit.egg-info/PKG-INFO
+nbgit.egg-info/SOURCES.txt
+nbgit.egg-info/dependency_links.txt
+nbgit.egg-info/top_level.txt
