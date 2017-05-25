@@ -129,7 +129,9 @@
   {
    "cell_type": "code",
    "execution_count": 7,
-   "metadata": {},
+   "metadata": {
+    "collapsed": true
+   },
    "outputs": [],
    "source": [
     "\n",
@@ -153,7 +155,7 @@
     "\n",
     "\n",
     "def _clean(line):\n",
-    "    return line.replace('\\n','').strip(' ')\n",
+    "    return line.replace('\\n','').rstrip(' ')\n",
     "\n",
     "\n",
     "def _cell_type_and_source_lines(cell):\n",
@@ -210,7 +212,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 8,
    "metadata": {
     "collapsed": true
    },
@@ -226,7 +228,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 9,
    "metadata": {
     "collapsed": true
    },
@@ -245,7 +247,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 20,
    "metadata": {
     "collapsed": true
    },
@@ -254,6 +256,48 @@
     "with open('firstpass-example.py','w') as file:\n",
     "    for line in notebook_lines:\n",
     "        file.write('{}\\n'.format(line))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": true
+   },
+   "source": [
+    "## TEST CLASS"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "from nbgit.converter import NB2Py"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "nbc=NB2Py('firstpass.ipynb.example','firstpass.nb2py.py')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {
+    "collapsed": true
+   },
+   "outputs": [],
+   "source": [
+    "nbc.convert()"
    ]
   },
   {

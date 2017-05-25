@@ -7,10 +7,9 @@ class NB2Py(object):
         Args:
             path: <str> path to file
     """
-    def __init__(self, path):
+    def __init__(self, path,py_path=None):
         self.path=path
-
-        self.py_path=self.path.replace('.ipynb','.py')
+        self.py_path=py_path or self.path.replace('.ipynb','.py')
 
 
     def convert(self):
@@ -83,7 +82,7 @@ class NB2Py(object):
 
 
     def _clean(self,line):
-        return line.replace('\n','').strip(' ')
+        return line.replace('\n','').rstrip(' ')
 
 
     def _cell_type_and_source_lines(self,cell):
