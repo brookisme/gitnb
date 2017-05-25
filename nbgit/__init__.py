@@ -1,5 +1,6 @@
 # __init__.py
 import os
+import re
 import errno
 import fnmatch
 import config
@@ -13,7 +14,8 @@ def install():
     """ Installs pre-commit hook
     """
     if os.path.exists(GIT_DIR):
-        _copy_or_append(pc.__file__,GIT_PC_PATH)
+        pcpath=re.sub('.pyc$','.py',pc.__file__)
+        _copy_or_append(pcpath,GIT_PC_PATH)
     else:
         print "nbgit: MUST INITIALIZE GIT"
 
@@ -61,6 +63,6 @@ def _copy_or_append(input_path,output_path):
     else: open_type='w'
     with open(output_path,open_type) as output_file:
         with open(input_path,'r') as input_file:
-            output_file.write(input_file)
+            output_file.write(input_file.read())
 
 
