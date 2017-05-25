@@ -38,7 +38,7 @@ pip install -e .
 #### INSTALL IN PROJECT
 
 * before installing for your project you must first init the git repo
-* this will create or append your `.git/hooks/pre-commit` file so that, upon git commit it will:
+* the command below will create or append your `.git/hooks/pre-commit` file so that, upon git commit it will:
     * copy all .ipynb to .py files
     * git add the new .py files to the repo
 * CLI coming soon. For now use 
