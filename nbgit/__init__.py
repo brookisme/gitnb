@@ -4,18 +4,18 @@ import re
 import errno
 import fnmatch
 import config
+import nbgit
 from nbgit.converter import NB2Py
-import nbgit.precommit as pc
 
 GIT_DIR='./.git'
 GIT_PC_PATH='./.git/hooks/pre-commit'
+PRECOMMIT_SCRIPT='{}/precommit'.format(nbgit.__path__[0])
 
 def install():
     """ Installs pre-commit hook
     """
     if os.path.exists(GIT_DIR):
-        pcpath=re.sub('.pyc$','.py',pc.__file__)
-        _copy_or_append(pcpath,GIT_PC_PATH)
+        _copy_or_append(PRECOMMIT_SCRIPT,GIT_PC_PATH)
     else:
         print "nbgit: MUST INITIALIZE GIT"
 
