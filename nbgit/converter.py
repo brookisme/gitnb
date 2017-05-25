@@ -67,7 +67,7 @@ class NB2Py(object):
 
 
     def _pypath(self):
-        py_path=re.sub('.ipynb$','.py',self.path)
+        py_path=re.sub('.ipynb$','.{}.py'.format(NBPY_IDENT),self.path)
         if NBPY_DIR:
             py_name=os.path.basename(py_path)
             py_path=os.path.join(NBPY_DIR,py_name)

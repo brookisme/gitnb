@@ -34,3 +34,4 @@ OUTPUTS_LABEL='output'
 NBPY_DIR='nbpy' # directory to save the notebooks or None for 'same directory as notebook'
 CREATE_DIRS=True
 EXCLUDE_DIRS=['.ipynb_checkpoints','.git']
+NBPY_IDENT='nbpy' # insert into file name for pre-commit hook
