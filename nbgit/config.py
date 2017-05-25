@@ -1,3 +1,6 @@
+#
+# NOTEBOOK CONFIG
+#
 TYPE_KEY='cell_type'
 INCLUDE_OUTPUT=False
 OUTPUTS_KEY='outputs'
@@ -24,6 +27,10 @@ OUTPUTS_START='"""[{}]'
 OUTPUTS_END='"""'
 OUTPUTS_LABEL_KEY=None
 OUTPUTS_LABEL='output'
+
+#
+# DIRECTORY CONFIG
+#
 NBPY_DIR='nbpy' # directory to save the notebooks or None for 'same directory as notebook'
 CREATE_DIRS=True
 EXCLUDE_DIRS=['.ipynb_checkpoints','.git']
