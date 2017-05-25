@@ -37,7 +37,6 @@ def _rglob(match='*',root='.',exclude_dirs=[]):
     matches = []
     for froot, _, filenames in os.walk(root):
         if not any(xdir in froot for xdir in exclude_dirs):
-            print(froot,_,filenames)
             for filename in fnmatch.filter(filenames, match):
                 matches.append(os.path.join(froot, filename))
     return matches
