@@ -4,6 +4,18 @@ import errno
 import fnmatch
 import config
 from nbgit.converter import NB2Py
+import nbgit.precommit as pc
+
+GIT_DIR='./.git'
+GIT_PC_PATH='./.git/hooks/pre-commit'
+
+def install():
+    """ Installs pre-commit hook
+    """
+    if os.path.exists(GIT_DIR):
+        _copy_or_append(pc.__file__,GIT_PC_PATH)
+    else:
+        print "nbgit: MUST INITIALIZE GIT"
 
 
 def notebook_list():
@@ -40,4 +52,15 @@ def _rglob(match='*',root='.',exclude_dirs=[]):
             for filename in fnmatch.filter(filenames, match):
                 matches.append(os.path.join(froot, filename))
     return matches
+
+
+def _copy_or_append(input_path,output_path):
+    """ COPY OR APPEND input_path to output_path
+    """
+    if os.path.isfile(output_path): open_type='a'
+    else: open_type='w'
+    with open(output_path,open_type) as output_file:
+        with open(input_path,'r') as input_file:
+            output_file.write(input_file)
+
 
