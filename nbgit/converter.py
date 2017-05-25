@@ -15,7 +15,8 @@ class NB2Py(object):
 
 
     def convert(self):
-        """ converts ipynb to .py """
+        """ Convert .ipynb to .nbpy.py
+        """
         if CREATE_DIRS: self._mkdirs()
         with open(self.path,'r') as notebook_file:
             self.notebook_dict=json.load(notebook_file)
