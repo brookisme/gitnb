@@ -16,6 +16,7 @@ def install():
     """
     if os.path.exists(GIT_DIR):
         _copy_or_append(PRECOMMIT_SCRIPT,GIT_PC_PATH)
+        os.system('chmod +x {}'.format(GIT_PC_PATH))
     else:
         print "nbgit: MUST INITIALIZE GIT"
 
