@@ -66,6 +66,10 @@ nbgit install
 * install user config file (nbgit_config.py)
 
 ```bash
+#
+# THE CURRENT VERSION ADDS THE PROJECT DIRECTORY TO THE SYS PATH
+# I AM PLANNING ON FINDING A CLEANER WAY
+#
 nbgit configure
 ```
 
