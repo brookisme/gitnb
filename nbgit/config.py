@@ -22,7 +22,7 @@ default_config=yaml.safe_load(open(nbgit.DEFAULT_CONFIG_PATH))
     get property from user_config (if it exists) 
     otherwise use default_config
 """
-def fig(prop)
+def fig(prop):
     return user_config.get(
         prop,
         default_config.get(prop))
