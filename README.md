@@ -63,7 +63,7 @@ pip install -e .
 nbgit install
 ```
 
-* install user config file (nbgit_config.py)
+* ( optional - only if you want to change the [defaults](https://github.com/brookisme/nbgit/blob/master/nbgit/_default_config.py) ): install user config file (nbgit_config.py)
 
 ```bash
 #
