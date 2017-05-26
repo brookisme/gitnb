@@ -1,30 +1,39 @@
-# __init__.py
 import os
 import re
-import errno
-import fnmatch
-import config
+import _default_config
 import nbgit
+import nbgit.utils as utils
 from nbgit.converter import NB2Py
 
 GIT_DIR='./.git'
 GIT_PC_PATH='./.git/hooks/pre-commit'
-PRECOMMIT_SCRIPT='{}/precommit'.format(nbgit.__path__[0])
+NBGIT_DIR=nbgit.__path__[0]
+PRECOMMIT_SCRIPT_PATH='{}/precommit'.format(NBGIT_DIR)
+DEFAULT_CONFIG_PATH='{}/_default_config.py'.format(NBGIT_DIR)
+CONFIG_PATH='./nbgit_config.py'
+
 
 def install():
     """ Installs pre-commit hook
     """
     if os.path.exists(GIT_DIR):
-        _copy_or_append(PRECOMMIT_SCRIPT,GIT_PC_PATH)
+        utils.copy_append(PRECOMMIT_SCRIPT_PATH,GIT_PC_PATH)
         os.system('chmod +x {}'.format(GIT_PC_PATH))
     else:
         print "nbgit: MUST INITIALIZE GIT"
 
 
+def configure():
+    """ Install config file
+        allows user to change config
+    """
+    utils.copy_append(DEFAULT_CONFIG_PATH,CONFIG_PATH,'w')
+
+
 def notebook_list():
     """ Notebook paths as list
     """
-    return _rglob('*.ipynb',exclude_dirs=config.EXCLUDE_DIRS)    
+    return utils.rglob('*.ipynb',exclude_dirs=config.EXCLUDE_DIRS)    
 
 
 def convert_all(noisy=True):
@@ -42,28 +51,6 @@ def convert(path):
     NB2Py(path).convert()
 
 
-def _rglob(match='*',root='.',exclude_dirs=[]):
-    """ Recursive Glob
-        Args:
-            match: <str> string to match
-            root: <str> dir to start recursive search
-            exclude: <list[str]> list of directories to skip
-    """
-    matches = []
-    for froot, _, filenames in os.walk(root):
-        if not any(xdir in froot for xdir in exclude_dirs):
-            for filename in fnmatch.filter(filenames, match):
-                matches.append(os.path.join(froot, filename))
-    return matches
 
-
-def _copy_or_append(input_path,output_path):
-    """ COPY OR APPEND input_path to output_path
-    """
-    if os.path.isfile(output_path): open_type='a'
-    else: open_type='w'
-    with open(output_path,open_type) as output_file:
-        with open(input_path,'r') as input_file:
-            output_file.write(input_file.read())
 
 
