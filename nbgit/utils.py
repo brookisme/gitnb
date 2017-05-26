@@ -34,3 +34,13 @@ def git_add(path):
     safe_path="'{}'".format(path)
     cmd=' '.join(['git add',safe_path])
     subprocess.check_output(cmd, shell=True)
+
+
+def truthy(value):
+    """ Stringy Truthyness
+    """
+    value=str(value).lower()
+    if value in ['none','false','0','nope']:
+        return False
+    else:
+        return True

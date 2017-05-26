@@ -10,4 +10,9 @@ setup(
   download_url = 'https://github.com/brookisme/nbgit/tarball/0.1',
   keywords = ['ipython', 'notebook','git'],
   classifiers = [],
+  entry_points={
+      'console_scripts': [
+          'nbgit=nbgit:main',
+      ],
+  }
 )

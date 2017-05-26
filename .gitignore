@@ -31,3 +31,4 @@ sftp-config.json
 
 # NBGIT
 nbgit_config.py
+nbgit.egg-info
