@@ -30,5 +30,6 @@ sftp-config.json
 *.ipynb
 
 # NBGIT
+nbpy
 nbgit_config.py
 nbgit.egg-info
