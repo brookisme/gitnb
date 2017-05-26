@@ -23,7 +23,7 @@ Thats it! A git commit will:
 
 Here is and example output file:
 
-https://github.com/brookisme/nbgit/blob/master/nbpy/firstpass.nbpy.py
+https://github.com/brookisme/nbgit/blob/master/NBGit%20Example%20Notebook.nbpy.py
 
 File Location/Naming/Layout/Ect... is configurable with the user config file, and there is a CLI for performing these operations outside of the git commit.
 
