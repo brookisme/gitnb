@@ -21,7 +21,7 @@ Thats it! A git commit will:
 * create or update a python file that you can track with git
 * call `git add` on the new python file (you can turn this off by setting AUTO_ADD_NBPY=False)
 
-Here is and example output file:
+Here is an example output file:
 
 https://github.com/brookisme/nbgit/blob/master/NBGit%20Example%20Notebook.nbpy.py
 
