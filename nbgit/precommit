@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import nbgit
-import os
-import subprocess
+
 
 #########################################################################
 #
@@ -11,7 +10,8 @@ import subprocess
 #       upon nbgit.install().
 #   -   Upon commiting:
 #       - all notebooks will be converted to .nbpy.py files
-#       - the .nbpy.py files are added to the repo
+#       - if AUTO_ADD_NBPY==True:
+#           .nbpy.py files are added to the repo
 #   
 #########################################################################
 
@@ -19,29 +19,7 @@ import subprocess
 #
 # CONVERT
 #
-def convert_notebooks():
-    print('nbgit: looking for notebooks...')
-    nbgit.convert_all()
-    print('nbgit: adding nbpy')
+print('nbgit: looking for notebooks...')
+nbgit.convert_all()
 
 
-#
-# ADD FILES TO REPO
-#
-def git_add(match):
-    cmd=' '.join(['git add',match])
-    subprocess.check_output(cmd, shell=True)
-
-
-def add_files_to_repo():
-    fmatch='*.{}.py'.format(nbgit.config.NBPY_IDENT)
-    git_add(fmatch)
-    git_add('**/{}'.format(fmatch))
-
-
-#
-# run
-#
-convert_notebooks()
-if nbgit.config.AUTO_ADD_NBPY:
-    add_files_to_repo()

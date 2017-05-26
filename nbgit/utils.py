@@ -1,4 +1,5 @@
 import os
+import subprocess
 import fnmatch
 
 def rglob(match='*',root='.',exclude_dirs=[]):
@@ -25,3 +26,11 @@ def copy_append(input_path,output_path,open_type=None):
     with open(output_path,open_type) as output_file:
         with open(input_path,'r') as input_file:
             output_file.write(input_file.read())
+
+
+def git_add(path):
+    """ GIT ADD FILE
+    """
+    safe_path="'{}'".format(path)
+    cmd=' '.join(['git add',safe_path])
+    subprocess.check_output(cmd, shell=True)

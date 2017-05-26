@@ -1,9 +1,9 @@
 import os
 import re
-import _default_config
 import nbgit
 import nbgit.utils as utils
 from nbgit.converter import NB2Py
+from nbgit.config import AUTO_ADD_NBPY
 
 GIT_DIR='./.git'
 GIT_PC_PATH='./.git/hooks/pre-commit'
@@ -41,14 +41,18 @@ def convert_all(noisy=True):
     """
     if noisy: print('nbgit[notebooks]:')
     for path in notebook_list():
-        if noisy: print('\t{}'.format(path))
         convert(path)
 
 
-def convert(path):
-    """ Convert Single Notebook
+def convert(path,noisy=True):
+    """ Convert Notebook
     """
-    NB2Py(path).convert()
+    if noisy: print('\t{}'.format(path))
+    nbpy_path=NB2Py(path).convert()
+    if AUTO_ADD_NBPY:
+        utils.git_add(nbpy_path)
+
+    
 
 
 

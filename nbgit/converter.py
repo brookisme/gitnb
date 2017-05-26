@@ -16,6 +16,7 @@ class NB2Py(object):
 
     def convert(self):
         """ Convert .ipynb to .nbpy.py
+            returns file path of nbpy file
         """
         if CREATE_DIRS: self._mkdirs()
         with open(self.path,'r') as notebook_file:
@@ -23,6 +24,7 @@ class NB2Py(object):
             with open(self.py_path,'w') as py_file:
                 for line in self._lines():
                     py_file.write('{}\n'.format(line))
+        return self.py_path
 
 
     #
@@ -68,7 +70,9 @@ class NB2Py(object):
 
 
     def _pypath(self):
-        py_path=re.sub('.ipynb$','.{}.py'.format(NBPY_IDENT),self.path)
+        if NBPY_IDENT: ext='.{}.py'.format(NBPY_IDENT)
+        else: ext='.py'
+        py_path=re.sub('.ipynb$',ext,self.path)
         if NBPY_DIR:
             py_name=os.path.basename(py_path)
             py_path=os.path.join(NBPY_DIR,py_name)
