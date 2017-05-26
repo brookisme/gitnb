@@ -7,29 +7,37 @@ tmp/
 pip-selfcheck.json
 man
 
-# drive
-.gd
-
-# Virtualenv
-.Python
-bin
-lib
-include
-
 # Codebase
 playground.py
 
-# PYPI
-dist/
-MANIFEST
 
 # SUBLIME
 sftp-config.json
 
-# Notebooks
-*.ipynb
 
 # NBGIT
-nbpy
+nbpy/
 nbgit_config.py
-nbgit.egg-info
+*.ipynb
+
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+MANIFEST
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+bin/
+include
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
