@@ -5,14 +5,14 @@ import argparse
 import nbgit
 import nbgit.utils as utils
 from nbgit.converter import NB2Py
-from nbgit.config import AUTO_ADD_NBPY
+import nbgit.config as con
 
 GIT_DIR='./.git'
 GIT_PC_PATH='./.git/hooks/pre-commit'
 NBGIT_DIR=nbgit.__path__[0]
 PRECOMMIT_SCRIPT_PATH='{}/precommit'.format(NBGIT_DIR)
-DEFAULT_CONFIG_PATH='{}/_default_config.py'.format(NBGIT_DIR)
-CONFIG_PATH='./nbgit_config.py'
+DEFAULT_CONFIG_PATH='{}/default.config.yaml'.format(NBGIT_DIR)
+USER_CONFIG_PATH='./nbgit.config.yaml'
 
 
 def install():
@@ -54,10 +54,11 @@ def convert(path,noisy=True):
     else:
         if noisy: print('\t\t{}'.format(path))
         nbpy_path=NB2Py(path).convert()
-        if AUTO_ADD_NBPY:
+        if con.fig('AUTO_ADD_NBPY'):
             utils.git_add(nbpy_path)
 
-    
+
+
 #######################################################
 #
 # CLI 

@@ -1,11 +1,28 @@
 import os
-import sys
-CONFIG_PATH='./nbgit_config.py'
+import yaml
+import nbgit
 
 
-if os.path.isfile(CONFIG_PATH):
-    print "PROJECT DIRECTORY ADDED TO SYS PATH!"
-    sys.path.append('./')
-    from nbgit_config import *
+#
+# LOAD USER CONFIG
+#
+if os.path.isfile(nbgit.USER_CONFIG_PATH):
+    user_config=yaml.safe_load(open(nbgit.USER_CONFIG_PATH))
 else:
-    from _default_config import *
+    user_config={}
+
+
+#
+# LOAD DEFAULT CONFIG
+#
+default_config=yaml.safe_load(open(nbgit.DEFAULT_CONFIG_PATH))
+
+
+""" fig (as in con.fig)
+    get property from user_config (if it exists) 
+    otherwise use default_config
+"""
+def fig(prop)
+    return user_config.get(
+        prop,
+        default_config.get(prop))
