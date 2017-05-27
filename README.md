@@ -88,7 +88,7 @@ positional arguments:
     install             installs nbgit into local project (writes to
                         .git/hooks/pre-commit
     configure           creates local configuration file (./nbgit_config.py)
-    nblist              list all noteboks (that are not in EXCLUDE_DIRS
+    nblist              list all noteboks (that are not in EXCLUDE_DIRS)
     convert             convert .ipynb files to .nbpy.py files
 
 optional arguments:
