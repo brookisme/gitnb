@@ -3,6 +3,7 @@ import json
 import re
 import errno
 import nbgit.config as con
+import nbgit.utils as utils
 
 
 class NB2Py(object):
@@ -76,7 +77,7 @@ class NB2Py(object):
         if con.fig('NBPY_IDENT'): ext='.{}.py'.format(con.fig('NBPY_IDENT'))
         else: ext='.py'
         py_path=re.sub('.ipynb$',ext,self.path)
-        if con.fig('NBPY_DIR'):
+        if utils.truthy(con.fig('NBPY_DIR')):
             py_name=os.path.basename(py_path)
             py_path=os.path.join(con.fig('NBPY_DIR'),py_name)
         return py_path
@@ -86,11 +87,13 @@ class NB2Py(object):
         """ Make parent dirs if they dont exist
         """
         if not os.path.exists(os.path.dirname(self.py_path)):
-            try:
-                os.makedirs(os.path.dirname(self.py_path))
-            except OSError as exc:
-                if exc.errno != errno.EEXIST:
-                    raise
+            nb_dir=os.path.dirname(self.py_path)
+            if utils.truthy(nb_dir):
+                try:
+                    os.makedirs(os.path.dirname(self.py_path))
+                except OSError as exc:
+                    if exc.errno != errno.EEXIST:
+                        raise
     
 
     def _outputs(self,cell):

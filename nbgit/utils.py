@@ -39,8 +39,8 @@ def git_add(path):
 def truthy(value):
     """ Stringy Truthyness
     """
-    value=str(value).lower()
-    if value in ['none','false','0','nope']:
+    value=str(value).lower().strip(' ')
+    if value in ['none','false','0','nope','','[]']:
         return False
     else:
         return True
