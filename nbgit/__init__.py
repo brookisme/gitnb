@@ -2,25 +2,19 @@ from __future__ import print_function
 import os
 import re
 import argparse
-import nbgit
+import nbgit.paths as paths
 import nbgit.utils as utils
 from nbgit.converter import NB2Py
 import nbgit.config as con
 
-GIT_DIR='./.git'
-GIT_PC_PATH='./.git/hooks/pre-commit'
-NBGIT_DIR=nbgit.__path__[0]
-PRECOMMIT_SCRIPT_PATH='{}/precommit'.format(NBGIT_DIR)
-DEFAULT_CONFIG_PATH='{}/default.config.yaml'.format(NBGIT_DIR)
-USER_CONFIG_PATH='./nbgit.config.yaml'
 
 
 def install():
     """ Installs pre-commit hook
     """
-    if os.path.exists(GIT_DIR):
-        utils.copy_append(PRECOMMIT_SCRIPT_PATH,GIT_PC_PATH)
-        os.system('chmod +x {}'.format(GIT_PC_PATH))
+    if os.path.exists(paths.GIT_DIR):
+        utils.copy_append(paths.PRECOMMIT_SCRIPT,paths.GIT_PC)
+        os.system('chmod +x {}'.format(paths.GIT_PC))
     else:
         print("nbgit: MUST INITIALIZE GIT")
 
@@ -29,13 +23,13 @@ def configure():
     """ Install config file
         allows user to change config
     """
-    utils.copy_append(DEFAULT_CONFIG_PATH,CONFIG_PATH,'w')
+    utils.copy_append(paths.DEFAULT_CONFIG,paths.USER_CONFIG,'w')
 
 
 def notebook_list():
     """ Notebook paths as list
     """
-    return utils.rglob('*.ipynb',exclude_dirs=config.EXCLUDE_DIRS)    
+    return utils.rglob('*.ipynb',exclude_dirs=con.fig('EXCLUDE_DIRS'))    
 
 
 def convert_all(noisy=True):
@@ -56,6 +50,7 @@ def convert(path,noisy=True):
         nbpy_path=NB2Py(path).convert()
         if con.fig('AUTO_ADD_NBPY'):
             utils.git_add(nbpy_path)
+
 
 
 
@@ -100,7 +95,7 @@ def main():
     parser_install.set_defaults(func=_install)    
     # configure
     parser_configure=subparsers.add_parser(
-        'configure', help='creates local configuration file ({})'.format(CONFIG_PATH))
+        'configure', help='creates local configuration file ({})'.format(paths.USER_CONFIG))
     parser_configure.set_defaults(func=_configure)    
     # nblist
     parser_nb_list=subparsers.add_parser(

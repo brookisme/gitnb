@@ -1,13 +1,12 @@
 import os
 import yaml
-import nbgit
-
+import nbgit.paths as paths
 
 #
 # LOAD USER CONFIG
 #
-if os.path.isfile(nbgit.USER_CONFIG_PATH):
-    user_config=yaml.safe_load(open(nbgit.USER_CONFIG_PATH))
+if os.path.isfile(paths.USER_CONFIG):
+    user_config=yaml.safe_load(open(paths.USER_CONFIG))
 else:
     user_config={}
 
@@ -15,7 +14,7 @@ else:
 #
 # LOAD DEFAULT CONFIG
 #
-default_config=yaml.safe_load(open(nbgit.DEFAULT_CONFIG_PATH))
+default_config=yaml.safe_load(open(paths.DEFAULT_CONFIG))
 
 
 """ fig (as in con.fig)

@@ -8,7 +8,13 @@
 #     - NBPY_DIR:  
 #         - direcotry to save .nbpy.py files
 #         - if None: 
-#             files will be saved in the same dir as the associated notebook
+#               - files will be saved in the same dir as the associated notebook
+#               * NOTE: 
+#                   - this is yaml None => 
+#                       NBPY_DIR:
+#                   - NOT !=>
+#                       NBPY_DIR: None
+#
 #     - CREATE_DIRS:  if true directories will be created as needed
 # """
 NBPY_DIR: nbpy
