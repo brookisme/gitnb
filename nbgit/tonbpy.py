@@ -4,6 +4,7 @@ import re
 import errno
 import nbgit.config as con
 import nbgit.utils as utils
+from nbgit.constants import *
 
 
 class NB2Py(object):
@@ -35,7 +36,7 @@ class NB2Py(object):
     def _lines(self):
         """ get lines from notebook as a list """
         notebook_lines=[]
-        for cell in self.notebook_dict.get('cells',[]):
+        for cell in self.notebook_dict.get(CELLS_KEY,[]):
             notebook_lines=notebook_lines+self._cell_header(cell)
             notebook_lines=notebook_lines+self._source(cell)
         if con.fig('INCLUDE_OUTPUT'):
@@ -60,16 +61,12 @@ class NB2Py(object):
         cell_type, lines=self._cell_type_and_source_lines(cell)
         if lines:
             lines=[self._clean(line) for line in lines]
-            if cell_type!=con.fig('CODE_TYPE'):
-                lines.insert(0,con.fig('UNCODE_START').format(
-                    cell.get(con.fig('TYPE_KEY'),''))) 
-                lines.append(con.fig('UNCODE_END')) 
-            else:
-                if con.fig('CODE_START'):
-                    lines.insert(0,con.fig('CODE_START').format(
-                        cell.get(con.fig('TYPE_KEY'),'')))
-                if con.fig('CODE_END'):
-                    lines.append(con.fig('CODE_END'))       
+            if cell_type!=CODE_TYPE:
+                lines.insert(0,UNCODE_START.format(cell.get(TYPE_KEY))) 
+                lines.append(UNCODE_END) 
+            else:                lines.insert(0,CODE_START)
+                lines.append(CODE_END)     
+  
         return lines
 
 
@@ -98,13 +95,12 @@ class NB2Py(object):
 
     def _outputs(self,cell):
         lines=[]
-        outputs=cell.get(con.fig('OUTPUTS_KEY'),False)
+        outputs=cell.get(OUTPUTS_KEY,False)
         if outputs:
             lines=self._append_empty_lines(lines,LINES_BEFORE_OUTPUTS)
-            lines.append(con.fig('OUTPUTS_START').format(
-                cell.get(con.fig('OUTPUTS_LABEL_KEY'),con.fig('OUTPUTS_LABEL')))) 
+            lines.append(OUTPUTS_START) 
             for out in outputs: lines=lines+self._outputs(out)
-            lines.append(con.fig('OUTPUTS_END'))  
+            lines.append(OUTPUTS_END)  
             lines=self._append_empty_lines(lines,con.fig('LINES_AFTER_OUTPUTS'))
         return lines
 
@@ -116,18 +112,18 @@ class NB2Py(object):
 
 
     def _clean(self,line):
-        return line.replace('\n','').rstrip(' ')
+        return line.rstrip(' ').rstrip('\n','').rstrip(' ')
 
 
     def _cell_type_and_source_lines(self,cell):
-        cell_type=cell.get(con.fig('TYPE_KEY'))
-        source_lines=cell.get(con.fig('SOURCE_KEY'),[])
+        cell_type=cell.get(TYPE_KEY)
+        source_lines=cell.get(SOURCE_KEY,[])
         return cell_type,[self._clean(line) for line in source_lines]
 
 
     def _output(self,out):
         # MAYBE DO SOMETHING MORE HERE - STRIP IMAGES ECT
-        return self._clean(out.get(con.fig('OUTPUT_KEY'),''))
+        return self._clean(out.get(OUTPUT_KEY,''))
         
 
 
