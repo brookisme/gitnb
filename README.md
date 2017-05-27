@@ -63,13 +63,9 @@ pip install -e .
 nbgit install
 ```
 
-* ( optional - only if you want to change the [defaults](https://github.com/brookisme/nbgit/blob/master/nbgit/_default_config.py) ): install user config file (nbgit_config.py)
+* ( optional - only if you want to change the [defaults](https://github.com/brookisme/nbgit/blob/master/nbgit/default.config.yaml) ): install user config file (nbgit.config.yaml).  See doc-comments in [defaults](https://github.com/brookisme/nbgit/blob/master/nbgit/default.config.yaml) file to edit.
 
 ```bash
-#
-# THE CURRENT VERSION ADDS THE PROJECT DIRECTORY TO THE SYS PATH
-# I AM PLANNING ON FINDING A CLEANER WAY
-#
 nbgit configure
 ```
 
