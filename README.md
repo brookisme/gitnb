@@ -56,6 +56,7 @@ pip install -e .
 --------------------------------
 ### PROJECT INSTALL
 
+* you should probably add `*.ipynb` to your `.gitignore`
 * before installing for your project you must first init the git repo
 * the command below will create or append your `.git/hooks/pre-commit` file so that, upon git commit it will:
     * copy all .ipynb to .py files
