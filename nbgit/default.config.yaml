@@ -83,8 +83,8 @@ LINES_BETWEEN_OUTPUTS: 1
 
 # """ START/END of code block
 # """
-CODE_START: '# ----------------- [code] -----------------'
-CODE_END: '# ----------------------------------------'
+CODE_START: '"""[code]"""'
+CODE_END: '""""""'
 
 # """ START/END of markdown|raw block 
 #     - the {} is replaced with markdown|raw
