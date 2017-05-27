@@ -4,7 +4,7 @@ import re
 import argparse
 import nbgit.paths as paths
 import nbgit.utils as utils
-from nbgit.converter import NB2Py
+from nbgit.tonbpy import NB2Py
 import nbgit.config as con
 
 
