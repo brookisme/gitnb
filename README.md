@@ -46,6 +46,9 @@ This is early stage **WIP**, but seems to be working - albeit missing tests, bel
 ```bash
 git clone https://github.com/brookisme/nbgit.git
 cd nbgit
+#
+# You may need sudo here. I'll push to PYPI once this is more stable
+#
 pip install -e .
 ```
 
