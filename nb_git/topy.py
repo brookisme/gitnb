@@ -2,9 +2,9 @@ import os
 import json
 import re
 import errno
-import nbgit.config as con
-import nbgit.utils as utils
-from nbgit.constants import *
+import nb_git.config as con
+import nb_git.utils as utils
+from nb_git.constants import *
 
 
 class NB2Py(object):

@@ -18,7 +18,7 @@ sftp-config.json
 # NBGIT
 nbpy/
 nbpy_nb/
-nbgit.config.yaml
+nb_git.config.yaml
 *.ipynb
 
 

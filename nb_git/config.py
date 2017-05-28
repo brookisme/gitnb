@@ -1,6 +1,6 @@
 import os
 import yaml
-import nbgit.paths as paths
+import nb_git.paths as paths
 
 #
 # LOAD USER CONFIG

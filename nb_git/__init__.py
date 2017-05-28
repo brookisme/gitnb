@@ -2,11 +2,11 @@ from __future__ import print_function
 import os
 import re
 import argparse
-import nbgit.paths as paths
-import nbgit.utils as utils
-from nbgit.topy import NB2Py
-from nbgit.tonb import Py2NB
-import nbgit.config as con
+import nb_git.paths as paths
+import nb_git.utils as utils
+from nb_git.topy import NB2Py
+from nb_git.tonb import Py2NB
+import nb_git.config as con
 
 
 
@@ -17,7 +17,7 @@ def install():
         utils.copy_append(paths.PRECOMMIT_SCRIPT,paths.GIT_PC)
         os.system('chmod +x {}'.format(paths.GIT_PC))
     else:
-        print("nbgit: MUST INITIALIZE GIT")
+        print("nb_git: MUST INITIALIZE GIT")
 
 
 def configure():
@@ -43,7 +43,7 @@ def nbpy_list():
 def topy_all(noisy=True):
     """ Convert all Notebooks
     """
-    if noisy: print('\tnbgit[topy notebooks]:')
+    if noisy: print('\tnb_git[topy notebooks]:')
     for path in notebook_list():
         topy(path)
 
@@ -52,7 +52,7 @@ def topy(path,destination_path=None,noisy=True):
     """ Convert Notebook to Py
     """
     if not path:
-        print('\tnbgit: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
+        print('\tnb_git: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
     else:
         if noisy: print('\t\t{}'.format(path))
         nbpy_path=NB2Py(path,destination_path).convert()
@@ -63,7 +63,7 @@ def topy(path,destination_path=None,noisy=True):
 def tonb_all(noisy=True):
     """ TODO: Convert all NBPY files to Notebooks
     """
-    # if noisy: print('\tnbgit[tonb nbpy-files]:')
+    # if noisy: print('\tnb_git[tonb nbpy-files]:')
     # for path in notebook_list():
     #     topy(path)
     print("TODO: Convert all NBPY files to Notebooks")
@@ -74,7 +74,7 @@ def tonb(path,destination_path=None,noisy=True):
     """ Convert Notebook to Py
     """
     if not path:
-        print('\tnbgit: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
+        print('\tnb_git: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
     else:
         if noisy: print('\t\t{}'.format(path))
         nbpy_path=Py2NB(path,destination_path).convert()
@@ -105,12 +105,12 @@ def _configure(args):
 
 def _notebook_list(args):
     for nb in notebook_list():
-        print('\tnbgit:',nb)
+        print('\tnb_git:',nb)
 
 
 def _nbpy_list(args):
     for nbpy in nbpy_list():
-        print('\tnbgit:',nbpy)
+        print('\tnb_git:',nbpy)
 
 
 def _topy(args):
@@ -139,7 +139,7 @@ def main():
     # install
     parser_install=subparsers.add_parser(
         'install',
-        help='installs nbgit into local project (writes to .git/hooks/pre-commit')
+        help='installs nb_git into local project (writes to .git/hooks/pre-commit')
     parser_install.set_defaults(func=_install)    
     # configure
     parser_configure=subparsers.add_parser(

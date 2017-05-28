@@ -23,7 +23,7 @@ Thats it! A git commit will:
 
 Here is an example output file:
 
-https://github.com/brookisme/nbgit/blob/master/NBGit%20Example%20Notebook.nbpy.py
+https://github.com/brookisme/nb_git/blob/master/NBGit%20Example%20Notebook.nbpy.py
 
 File Location/Naming/Layout/Ect... is configurable with the user config file, and there is a CLI for performing these operations outside of the git commit.
 
@@ -44,8 +44,8 @@ This is a **WIP**, but seems to be working - albeit missing tests, bells and the
 ### INSTALL NBGIT
 
 ```bash
-git clone https://github.com/brookisme/nbgit.git
-cd nbgit
+git clone https://github.com/brookisme/nb_git.git
+cd nb_git
 #
 # You may need sudo here. I'll push to PYPI once this is more stable
 #
@@ -64,13 +64,13 @@ pip install -e .
 * install git-hooks 
 
 ```bash
-nbgit install
+nb_git install
 ```
 
-* ( optional - only if you want to change the [defaults](https://github.com/brookisme/nbgit/blob/master/nbgit/default.config.yaml) ): install user config file (nbgit.config.yaml).  See doc-comments in [defaults](https://github.com/brookisme/nbgit/blob/master/nbgit/default.config.yaml) file to edit.
+* ( optional - only if you want to change the [defaults](https://github.com/brookisme/nb_git/blob/master/nb_git/default.config.yaml) ): install user config file (nb_git.config.yaml).  See doc-comments in [defaults](https://github.com/brookisme/nb_git/blob/master/nb_git/default.config.yaml) file to edit.
 
 ```bash
-nbgit configure
+nb_git configure
 ```
 
 --------------------------------
@@ -82,25 +82,25 @@ Here is a `tonb` example:
 
 ```bash
 # using default destination path
-nbgit tonb -s soure_file.nbpy.py
+nb_git tonb -s soure_file.nbpy.py
 
 # specifiy destination path
-nbgit tonb -s soure_file.nbpy.py -d output_file.nbpy.ipynb
+nb_git tonb -s soure_file.nbpy.py -d output_file.nbpy.ipynb
 ```
 
 Here are the docs:
 
 ```bash
-nbgit-repo|master $ nbgit --help
-usage: nbgit [-h] {install,configure,nblist,topy,tonb} ...
+nb_git-repo|master $ nb_git --help
+usage: nb_git [-h] {install,configure,nblist,topy,tonb} ...
 
 NBGIT: TRACKING FOR PYTHON NOTEBOOKS
 
 positional arguments:
   {install,configure,nblist,topy,tonb}
-    install             installs nbgit into local project (writes to
+    install             installs nb_git into local project (writes to
                         .git/hooks/pre-commit
-    configure           creates local configuration file (./nbgit.config.yaml)
+    configure           creates local configuration file (./nb_git.config.yaml)
     nblist              list all noteboks (that are not in EXCLUDE_DIRS
     topy                topy .ipynb files to .nbpy.py files
     tonb                tonb .ipynb files to .nbpy.py files
@@ -111,8 +111,8 @@ optional arguments:
 
 ```bash
 # ** tonb has the same options **
-nbgit-repo|master $ nbgit topy --help
-usage: nbgit topy [-h] [-a ALL] [-s SOURCE] [-d DESTINATION] [-n NOISY]
+nb_git-repo|master $ nb_git topy --help
+usage: nb_git topy [-h] [-a ALL] [-s SOURCE] [-d DESTINATION] [-n NOISY]
 
 optional arguments:
   -h, --help            show this help message and exit

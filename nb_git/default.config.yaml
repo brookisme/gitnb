@@ -21,7 +21,7 @@ NBPY_NB_DIR: nbpy_nb
 CREATE_DIRS: True
 
 # """ EXCLUDE_DIRS
-#     - list of directories to exclude when using nbgit.convert_all
+#     - list of directories to exclude when using nb_git.convert_all
 # """
 EXCLUDE_DIRS:
     - .ipynb_checkpoints

@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 from __future__ import print_function
-import nbgit
+import nb_git
 
 
 #########################################################################
 #
 # NBGIT: 
 #   -   This file is automatically created/append to .git/hooks/pre-commit 
-#       upon nbgit.install().
+#       upon nb_git.install().
 #   -   Upon commiting:
 #       - all notebooks will be converted to .nbpy.py files
 #       - if AUTO_ADD_NBPY==True:
@@ -19,7 +19,7 @@ import nbgit
 #
 # CONVERT
 #
-print('nbgit: looking for notebooks...')
-nbgit.convert_all()
+print('nb_git: looking for notebooks...')
+nb_git.convert_all()
 
 
