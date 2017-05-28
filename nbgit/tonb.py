@@ -17,15 +17,16 @@ class Py2NB(object):
     cell_type=None
     ipynb_dict={}
     
-    def __init__(self,path):
+    def __init__(self,path,nb_path=None):
         self.lines=self._read_py_file(path)
+        self.nb_path=nb_path or self._nbpath()
         for line in lines:
             self._process_line(line)
         self.ipynb_dict['cells']=self.cells
         self.ipynb_dict.update(self._meta())
 
 
-    def write(self,fname):
+    def write(self):
         """ Write IPYNB JSON to file
         """
         ipynb_json=json.dumps(
@@ -33,7 +34,7 @@ class Py2NB(object):
             sort_keys=True,
             indent=con.fig('TAB_SIZE'))
         with open(fname, 'w') as outfile:
-            outfile.write(ipynb_json)
+            outfile.write(self.nb_path)
 
 
     #
@@ -145,8 +146,25 @@ class Py2NB(object):
 
 
     #
-    # UTILS
+    # INTERNAL: UTILS
     #
+    def _nbpath(self):
+        """ Get Path for nbpy.ipynb file
+            - if NBPY_NB_IDENT: use .{ident}.ipynb ext
+            - if NBPY_NB_DIR: put in nbpy_nb_dir
+            - else put in same direcotry as file
+        """
+        nbpy_nb_ident=con.fig('NBPY_NB_IDENT')
+        nbpy_nb_dir=con.fig('NBPY_NB_DIR')
+        if nbpy_nb_ident: ext='.{}.ipynb'.format(nbpy_nb_ident)
+        else: ext='.ipynb'
+        nb_path=re.sub('.py$',ext,self.path)
+        if utils.truthy(nbpy_nb_dir):
+            nb_name=os.path.basename(nb_path)
+            nb_path=os.path.join(nbpy_nb_dir,nb_name)
+        return nb_path
+
+
     def _read_py_file(self,path):
         """ Read file
             return lines list

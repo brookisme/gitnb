@@ -9,10 +9,15 @@
 #         - direcotry to save .nbpy.py files
 #         - if None: 
 #               - files will be saved in the same dir as the associated notebook
+#     - NBPY_NB_DIR:  
+#         - direcotry to save .nbpy.ipynb files
+#         - if None: 
+#               - files will be saved in the same dir as the associated py file
 #
 #     - CREATE_DIRS:  if true directories will be created as needed
 # """
 NBPY_DIR: nbpy
+NBPY_NB_DIR: nbpy_nb
 CREATE_DIRS: True
 
 # """ EXCLUDE_DIRS
@@ -22,7 +27,7 @@ EXCLUDE_DIRS:
     - .ipynb_checkpoints
     - .git
 
-# """ NBPY_IDENT
+# """ NBPY(_NB)_IDENT
 #     - an identifer in filenames to marke that it was generated from an ipynb
 
 #     examples:  
@@ -32,6 +37,7 @@ EXCLUDE_DIRS:
 #           somenotebook.ipynb : > somenotebook.py
 # """
 NBPY_IDENT: nbpy
+NBPY_NB_IDENT: nbpy
 
 # """ AUTO_ADD_NBPY
 #     - if True .nbpy.py files will be added to the git repo upon generation

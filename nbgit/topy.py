@@ -71,12 +71,19 @@ class NB2Py(object):
 
 
     def _pypath(self):
-        if con.fig('NBPY_IDENT'): ext='.{}.py'.format(con.fig('NBPY_IDENT'))
+        """ Get Path for nbpy.py file
+            - if NBPY_IDENT: use .{ident}.py ext
+            - if NBPY_DIR: put in nbpy_dir
+            - else put in same direcotry as file
+        """
+        nbpy_ident=con.fig('NBPY_IDENT')
+        nbpy_dir=con.fig('NBPY_DIR')
+        if nbpy_ident: ext='.{}.py'.format(nbpy_ident)
         else: ext='.py'
         py_path=re.sub('.ipynb$',ext,self.path)
-        if utils.truthy(con.fig('NBPY_DIR')):
+        if utils.truthy(nbpy_dir):
             py_name=os.path.basename(py_path)
-            py_path=os.path.join(con.fig('NBPY_DIR'),py_name)
+            py_path=os.path.join(nbpy_dir,py_name)
         return py_path
 
     
