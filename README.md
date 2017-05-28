@@ -8,7 +8,7 @@ A simple plan:
 * use git pre-commit hooks to
     * copy all .ipynb to .py files
     * git add the new .py files to the repo
-
+* you can create new notebooks from the `nbpy.py` files using the CLI (see docs below)
 ###### USAGE:
 
 ```bash
@@ -24,16 +24,6 @@ Thats it! A git commit will:
 Here is an example output file:
 
 https://github.com/brookisme/nbgit/blob/master/NBGit%20Example%20Notebook.nbpy.py
-
-* you can create new notebooks from the `nbpy.py` files using the CLI
-
-```bash
-# using default destination path
-nbgit tonb -s soure_file.nbpy.py
-
-# specifiy destination path
-nbgit tonb -s soure_file.nbpy.py -d output_file.nbpy.ipynb
-```
 
 File Location/Naming/Layout/Ect... is configurable with the user config file, and there is a CLI for performing these operations outside of the git commit.
 
@@ -86,7 +76,19 @@ nbgit configure
 --------------------------------
 ### OTHER CLI COMMANDS:
 
-In addition to the commands above, the CLI provides `nblist` (notebook-list), `tonb` (to-notebook), `topy` (to-python) and  which do what you think they do.  Here are the docs:
+In addition to the commands above, the CLI provides `nblist` (notebook-list), `tonb` (to-notebook), `topy` (to-python) and  which do what you think they do.  
+
+Here is a `tonb` example:
+
+```bash
+# using default destination path
+nbgit tonb -s soure_file.nbpy.py
+
+# specifiy destination path
+nbgit tonb -s soure_file.nbpy.py -d output_file.nbpy.ipynb
+```
+
+Here are the docs:
 
 ```bash
 nbgit-repo|master $ nbgit --help
