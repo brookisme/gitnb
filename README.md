@@ -25,18 +25,28 @@ Here is an example output file:
 
 https://github.com/brookisme/nbgit/blob/master/NBGit%20Example%20Notebook.nbpy.py
 
+* you can create new notebooks from the `nbpy.py` files using the CLI
+
+```bash
+# using default destination path
+nbgit tonb -s soure_file.nbpy.py
+
+# specifiy destination path
+nbgit tonb -s soure_file.nbpy.py -d output_file.nbpy.ipynb
+```
+
 File Location/Naming/Layout/Ect... is configurable with the user config file, and there is a CLI for performing these operations outside of the git commit.
 
 --------------------------------
 #### Code Status
-This is early stage **WIP**, but seems to be working - albeit missing tests, bells and the whistles.
+This is a **WIP**, but seems to be working - albeit missing tests, bells and the whistles.
 
 - [x] IPYNB -> PY converter
 - [x] PRECOMMIT HOOK SCRIPT
 - [x] PRECOMMIT HOOK INSTALLER
 - [x] USER CONFIG
 - [x] INSTALLER CLI
-- [ ] PY -> IPYNB converter
+- [x] PY -> IPYNB converter
 - [ ] tests
 - [ ] other/refactoring/cleanup
 
@@ -76,35 +86,41 @@ nbgit configure
 --------------------------------
 ### OTHER CLI COMMANDS:
 
-In addition to the commands above, the CLI provides `nblist` and `convert` which do what you think they do.  Here are the docs:
+In addition to the commands above, the CLI provides `nblist` (notebook-list), `tonb` (to-notebook), `topy` (to-python) and  which do what you think they do.  Here are the docs:
 
 ```bash
 nbgit-repo|master $ nbgit --help
-usage: nbgit [-h] {install,configure,nblist,convert} ...
+usage: nbgit [-h] {install,configure,nblist,topy,tonb} ...
 
 NBGIT: TRACKING FOR PYTHON NOTEBOOKS
 
 positional arguments:
-  {install,configure,nblist,convert}
+  {install,configure,nblist,topy,tonb}
     install             installs nbgit into local project (writes to
                         .git/hooks/pre-commit
-    configure           creates local configuration file (./nbgit_config.py)
-    nblist              list all noteboks (that are not in EXCLUDE_DIRS)
-    convert             convert .ipynb files to .nbpy.py files
+    configure           creates local configuration file (./nbgit.config.yaml)
+    nblist              list all noteboks (that are not in EXCLUDE_DIRS
+    topy                topy .ipynb files to .nbpy.py files
+    tonb                tonb .ipynb files to .nbpy.py files
 
 optional arguments:
   -h, --help            show this help message and exit
 ```
 
 ```bash
-nbgit-repo|master $ nbgit convert --help
-usage: nbgit convert [-h] [-a ALL] [-f FILE] [-n NOISY]
+# ** tonb has the same options **
+nbgit-repo|master $ nbgit topy --help
+usage: nbgit topy [-h] [-a ALL] [-s SOURCE] [-d DESTINATION] [-n NOISY]
 
 optional arguments:
   -h, --help            show this help message and exit
-  -a ALL, --all ALL     convert all notebooks listed with <nblist>
-  -f FILE, --file FILE  path to file to convert
+  -a ALL, --all ALL     topy all notebooks listed with <nblist>
+  -s SOURCE, --source SOURCE
+                        path to source-file to topy
+  -d DESTINATION, --destination DESTINATION
+                        (optional) path for output file. will use default path
+                        if not provided
   -n NOISY, --noisy NOISY
-                        print out files being converted
+                        print out files being topy-ed
 ```
 
