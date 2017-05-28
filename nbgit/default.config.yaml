@@ -107,6 +107,11 @@ HEADER_END: '"""'
 # nbpy.ipynb file CONFIG
 #
 ###########################################################
+# """ TAB_SIZE
+#   tabsize for ipynb files.  note unless you are in the 
+#   habit of looking at your raw ipynb json you'll probably
+#   never see it :)
+# """
 TAB_SIZE: 4
 
 
