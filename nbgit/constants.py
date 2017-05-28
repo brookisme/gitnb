@@ -13,8 +13,8 @@ OUTPUT_KEY='text'
 SOURCE_KEY='source'
 CELLS_KEY='cells'
 CODE_TYPE='code'
-MARKDOWN_TYPE='code'
-RAW_TYPE='code'
+MARKDOWN_TYPE='markdown'
+RAW_TYPE='raw'
 
 
 # """ START/END of code block

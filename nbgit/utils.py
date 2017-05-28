@@ -44,3 +44,19 @@ def truthy(value):
         return False
     else:
         return True
+
+
+def mkdirs(path):
+    """ Make parent dirs if they dont exist
+    """
+    if not os.path.exists(os.path.dirname(path)):
+        nb_dir=os.path.dirname(path)
+        if truthy(nb_dir):
+            try:
+                os.makedirs(os.path.dirname(path))
+            except OSError as exc:
+                if exc.errno != errno.EEXIST:
+                    raise
+
+
+

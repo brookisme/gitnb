@@ -55,7 +55,7 @@ def topy(path,destination_path=None,noisy=True):
         print('\tnbgit: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
     else:
         if noisy: print('\t\t{}'.format(path))
-        nbpy_path=NB2Py(path,destination_path).topy()
+        nbpy_path=NB2Py(path,destination_path).convert()
         if con.fig('AUTO_ADD_NBPY'):
             utils.git_add(nbpy_path)
 
@@ -77,9 +77,10 @@ def tonb(path,destination_path=None,noisy=True):
         print('\tnbgit: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
     else:
         if noisy: print('\t\t{}'.format(path))
-        nbpy_path=Py2NB(path,destination_path).topy()
-        if con.fig('AUTO_ADD_NBPY'):
-            utils.git_add(nbpy_path)
+        nbpy_path=Py2NB(path,destination_path).convert()
+        # TODO: HOW TO HANDEL NOTEBOOKS?
+        # if con.fig('AUTO_ADD_NBPY'):
+        #     utils.git_add(nbpy_path)
 
 
 
@@ -173,10 +174,10 @@ def main():
     parser_tonb.add_argument(
         '-a','--all',default=False,
         help='tonb all python files listed with <nbpylist>')
-    parser_topy.add_argument(
+    parser_tonb.add_argument(
         '-s','--source',
         help='path to source-file to topy')
-    parser_topy.add_argument(
+    parser_tonb.add_argument(
         '-d','--destination',default=None,
         help='(optional) path for output file. will use default path if not provided')
     parser_tonb.add_argument(

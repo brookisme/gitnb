@@ -26,6 +26,7 @@ CREATE_DIRS: True
 EXCLUDE_DIRS:
     - .ipynb_checkpoints
     - .git
+    - nbpy_nb
 
 # """ NBPY(_NB)_IDENT
 #     - an identifer in filenames to marke that it was generated from an ipynb

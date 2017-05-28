@@ -13,8 +13,21 @@ class NB2Py(object):
             path: <str> path to file
     """
     def __init__(self,path,py_path=None):
+        self._init_params()
         self.path=path
         self.py_path=py_path or self._pypath()
+
+
+    def lines(self):
+        """ get lines from notebook as a list """
+        if not self._lines:
+            self._lines=[]
+            for cell in self.notebook_dict.get(CELLS_KEY,[]):
+                self._lines=self._lines+self._cell_header(cell)
+                self._lines=self._lines+self._source(cell)
+            if con.fig('INCLUDE_OUTPUT'):
+                self._lines=self._lines+self._outputs(cell)
+        return self._lines
 
 
     def convert(self):
@@ -25,7 +38,7 @@ class NB2Py(object):
         with open(self.path,'r') as notebook_file:
             self.notebook_dict=json.load(notebook_file)
             with open(self.py_path,'w') as py_file:
-                for line in self._lines():
+                for line in self.lines():
                     py_file.write('{}\n'.format(line))
         return self.py_path
 
@@ -33,15 +46,8 @@ class NB2Py(object):
     #
     # INTERNAL
     #
-    def _lines(self):
-        """ get lines from notebook as a list """
-        notebook_lines=[]
-        for cell in self.notebook_dict.get(CELLS_KEY,[]):
-            notebook_lines=notebook_lines+self._cell_header(cell)
-            notebook_lines=notebook_lines+self._source(cell)
-        if con.fig('INCLUDE_OUTPUT'):
-            notebook_lines=notebook_lines+self._outputs(cell)
-        return notebook_lines
+    def _init_params(self):
+        self._lines=None
 
 
     def _cell_header(self,cell):
@@ -64,7 +70,8 @@ class NB2Py(object):
             if cell_type!=CODE_TYPE:
                 lines.insert(0,UNCODE_START.format(cell.get(TYPE_KEY))) 
                 lines.append(UNCODE_END) 
-            else:                lines.insert(0,CODE_START)
+            else:                
+                lines.insert(0,CODE_START)
                 lines.append(CODE_END)     
   
         return lines
@@ -90,15 +97,8 @@ class NB2Py(object):
     def _mkdirs(self):
         """ Make parent dirs if they dont exist
         """
-        if not os.path.exists(os.path.dirname(self.py_path)):
-            nb_dir=os.path.dirname(self.py_path)
-            if utils.truthy(nb_dir):
-                try:
-                    os.makedirs(os.path.dirname(self.py_path))
-                except OSError as exc:
-                    if exc.errno != errno.EEXIST:
-                        raise
-    
+        utils.mkdirs(self.py_path)
+
 
     def _outputs(self,cell):
         lines=[]
@@ -119,7 +119,7 @@ class NB2Py(object):
 
 
     def _clean(self,line):
-        return line.rstrip(' ').rstrip('\n','').rstrip(' ')
+        return line.rstrip(' ').rstrip('\n').rstrip(' ')
 
 
     def _cell_type_and_source_lines(self,cell):

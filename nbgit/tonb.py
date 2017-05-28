@@ -12,29 +12,38 @@ class Py2NB(object):
         Args:
             path: <str> path to file
     """
-    cells=[]
-    cell=None
-    cell_type=None
-    ipynb_dict={}
-    
     def __init__(self,path,nb_path=None):
-        self.lines=self._read_py_file(path)
+        self._init_params()
+        self.path=path
         self.nb_path=nb_path or self._nbpath()
-        for line in lines:
-            self._process_line(line)
-        self.ipynb_dict['cells']=self.cells
-        self.ipynb_dict.update(self._meta())
 
 
-    def write(self):
-        """ Write IPYNB JSON to file
+    def json(self):
+        """ get nbpy.py file as ipynb json 
+            - sets ipynb dict 
+            - sets ipynb json
+            - returns ipynb json 
         """
-        ipynb_json=json.dumps(
-            self.ipynb_dict,
-            sort_keys=True,
-            indent=con.fig('TAB_SIZE'))
-        with open(fname, 'w') as outfile:
-            outfile.write(self.nb_path)
+        if not self._json:
+            for line in self._read_py_file(self.path):
+                self._process_line(line)
+            self.ipynb_dict['cells']=self.cells
+            self.ipynb_dict.update(self._meta())
+            self._json=json.dumps(
+                self.ipynb_dict,
+                sort_keys=True,
+                indent=con.fig('TAB_SIZE'))
+        return self._json
+
+
+    def convert(self):
+        """ Convert .nbpy.py to .ipynb
+            returns file path of ipynb file
+        """
+        if con.fig('CREATE_DIRS'): self._mkdirs()
+        with open(self.nb_path, 'w') as outfile:
+            outfile.write(self.json())
+        return self.nb_path
 
 
     #
@@ -148,28 +157,46 @@ class Py2NB(object):
     #
     # INTERNAL: UTILS
     #
+    def _init_params(self):
+        self._json=None
+        self.cells=[]
+        self.cell=None
+        self.cell_type=None
+        self.ipynb_dict={}
+
+
     def _nbpath(self):
         """ Get Path for nbpy.ipynb file
             - if NBPY_NB_IDENT: use .{ident}.ipynb ext
             - if NBPY_NB_DIR: put in nbpy_nb_dir
             - else put in same direcotry as file
         """
+        nbpy_ident=con.fig('NBPY_IDENT')
         nbpy_nb_ident=con.fig('NBPY_NB_IDENT')
         nbpy_nb_dir=con.fig('NBPY_NB_DIR')
         if nbpy_nb_ident: ext='.{}.ipynb'.format(nbpy_nb_ident)
         else: ext='.ipynb'
-        nb_path=re.sub('.py$',ext,self.path)
+        path=re.sub('\.py$','',self.path)
+        if nbpy_ident:
+            path=re.sub('\.{}$'.format(nbpy_ident),'',path)
+        nb_path='{}{}'.format(path,ext)
         if utils.truthy(nbpy_nb_dir):
             nb_name=os.path.basename(nb_path)
             nb_path=os.path.join(nbpy_nb_dir,nb_name)
         return nb_path
 
 
+    def _mkdirs(self):
+        """ Make parent dirs if they dont exist
+        """
+        utils.mkdirs(self.nb_path)
+
+
     def _read_py_file(self,path):
         """ Read file
             return lines list
         """ 
-        with open(input_path,'r') as pyfile:
+        with open(path,'r') as pyfile:
             lines=pyfile.readlines()
         return lines
 
@@ -178,7 +205,7 @@ class Py2NB(object):
         """ Remove spaces and line break 
             from end of line
         """   
-        return line.rstrip('\n').rstrip(' ')
+        return line.rstrip(' ').rstrip('\n').rstrip(' ')
 
 
 
