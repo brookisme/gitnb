@@ -1,26 +1,35 @@
 ## NBGIT 
 _this is a [work in progress](#wip)_
 
-GIT TRACKING FOR PYTHON NOTEBOOKS.
+GIT TRACKING FOR PYTHON NOTEBOOKS
 
-A simple plan: 
+###### USAGE:
+
+```bash
+# in some project containing some ipython-notebooks
+git commit -am "some commit message"
+```
+
+Thats it!
+
+NBGIT doesn't actually track python notebooks. Instead, everytime you perform a `git commit`:
+
+* NBGIT automatically updates (or creates) a .py version of the notebook 
+* NBGIT performs a `git add` for any new .py versions (you can turn this off by setting AUTO_ADD_NBPY=False)
+
+This allows you to track any changes to your notebook (by tracking changes to its .py copy). 
+
+If you ever need to recover a notebook from a previous commit, or you are collaborating with others and they too would like a working copy of the notebook, there is a [CLI](#cli) command that creates a new notebook from the .py versions.
+
+
+
+* adds .py version to your git repo
 
 * create ipynb->py converter that ignores all the stuff that makes git tracking hard
 * use git pre-commit hooks to
     * copy all .ipynb to .py files
     * git add the new .py files to the repo
-* you can create new notebooks from the `nbpy.py` files using the [CLI](#cli)
-###### USAGE:
-
-```bash
-# in some project containing some ipython-notebooks
-git commit -am "this is going to create/update a python file(s) and add it(them) to your repo"
-```
-
-Thats it! A git commit will:
-
-* create or update a python file that you can track with git
-* call `git add` on the new python file (you can turn this off by setting AUTO_ADD_NBPY=False)
+* you can create new notebooks from the `nbpy.py` files using the 
 
 Here is an example output file:
 
