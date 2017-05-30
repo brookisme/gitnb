@@ -14,24 +14,14 @@ Thats it!
 
 NBGIT doesn't actually track python notebooks. Instead, everytime you perform a `git commit`:
 
-* NBGIT automatically updates (or creates) a .py version of the notebook 
+* NBGIT automatically updates (or creates) a .py version (a _nbpy.py_ file) of the notebook 
 * NBGIT performs a `git add` for any new .py versions (you can turn this off by setting AUTO_ADD_NBPY=False)
 
 This allows you to track any changes to your notebook (by tracking changes to its .py copy). 
 
 If you ever need to recover a notebook from a previous commit, or you are collaborating with others and they too would like a working copy of the notebook, there is a [CLI](#cli) command that creates a new notebook from the .py versions.
 
-
-
-* adds .py version to your git repo
-
-* create ipynb->py converter that ignores all the stuff that makes git tracking hard
-* use git pre-commit hooks to
-    * copy all .ipynb to .py files
-    * git add the new .py files to the repo
-* you can create new notebooks from the `nbpy.py` files using the 
-
-Here is an example output file:
+Here is an example nbpy.py file:
 
 https://github.com/brookisme/nb_git/blob/master/NBGit%20Example%20Notebook.nbpy.py
 
