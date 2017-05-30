@@ -19,7 +19,6 @@ import nb_git
 #
 # CONVERT
 #
-print('nb_git: looking for notebooks...')
 nb_git.topy_all()
 
 

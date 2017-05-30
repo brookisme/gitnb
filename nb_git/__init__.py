@@ -47,21 +47,17 @@ def nbpy_list():
 def topy_all(noisy=True):
     """ Convert all Notebooks
     """
-    if noisy: print('\tnb_git[topy notebooks]:')
     for path in notebook_list():
-        topy(path)
+        topy(path,None,noisy)
 
 
 def topy(path,destination_path=None,noisy=True):
     """ Convert Notebook to Py
     """
     if not path:
-        print('\tnb_git: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
+        print('nb_git: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
     else:
-        if noisy: print('\t\t{}'.format(path))
         nbpy_path=NB2Py(path,destination_path).convert()
-        if con.fig('AUTO_ADD_NBPY'):
-            utils.git_add(nbpy_path)
 
 
 def tonb_all(noisy=True):
@@ -78,9 +74,9 @@ def tonb(path,destination_path=None,noisy=True):
     """ Convert Notebook to Py
     """
     if not path:
-        print('\tnb_git: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
+        print('nb_git: ERROR - MUST PROVIDE FILE PATH TO CONVERT')
     else:
-        if noisy: print('\t\t{}'.format(path))
+        if noisy: print('nbgit: {} => {}'.format(path,destination_path or 'notebook'))
         nbpy_path=Py2NB(path,destination_path).convert()
         # TODO: HOW TO HANDEL NOTEBOOKS?
         # if con.fig('AUTO_ADD_NBPY'):

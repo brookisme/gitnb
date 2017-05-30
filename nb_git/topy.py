@@ -37,9 +37,12 @@ class NB2Py(object):
         if con.fig('CREATE_DIRS'): self._mkdirs()
         with open(self.path,'r') as notebook_file:
             self.notebook_dict=json.load(notebook_file)
+            file_exists=os.path.isfile(self.py_path)
             with open(self.py_path,'w') as py_file:
                 for line in self.lines():
                     py_file.write('{}\n'.format(line))
+            if (not file_exists) and con.fig('AUTO_ADD_NBPY'):
+                utils.git_add(self.py_path)
         return self.py_path
 
 

@@ -28,11 +28,12 @@ def copy_append(input_path,output_path,open_type=None):
             output_file.write(input_file.read())
 
 
-def git_add(path):
+def git_add(path,noisy=True):
     """ GIT ADD FILE
     """
     safe_path="'{}'".format(path)
     cmd=' '.join(['git add',safe_path])
+    if noisy: print('nb_git: {}'.format(cmd))
     subprocess.check_output(cmd, shell=True)
 
 
