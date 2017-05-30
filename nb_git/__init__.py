@@ -16,6 +16,9 @@ def install():
     if os.path.exists(paths.GIT_DIR):
         utils.copy_append(paths.PRECOMMIT_SCRIPT,paths.GIT_PC)
         os.system('chmod +x {}'.format(paths.GIT_PC))
+        print("nb_git: INSTALLED ")
+        print("\t - nbpy.py files will be created/updated/tracked")
+        print("\t - install user config with: $ nb_git configure")
     else:
         print("nb_git: MUST INITIALIZE GIT")
 
@@ -25,6 +28,7 @@ def configure():
         allows user to change config
     """
     utils.copy_append(paths.DEFAULT_CONFIG,paths.USER_CONFIG,'w')
+    print("nb_git: USER CONFIG FILE ADDED ({}) ".format(paths.USER_CONFIG))
 
 
 def notebook_list():
