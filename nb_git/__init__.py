@@ -98,8 +98,6 @@ def add(path,destination_path=None):
         'add',
         path,
         destination_path)
-    if nbpy_path and con.fig('GIT_ADD_ON_NB_GIT_ADD'):
-        utils.git_add(nbpy_path)
 
 
 
@@ -144,7 +142,9 @@ def _safe_path_exec(func,action,path,destination_path=None):
     if os.path.isfile(path):
         _exec(func,path,destination_path)
     elif os.path.isdir(path):
-        file_paths=utils.rglob(match='*.ipynb',root=path)
+        file_paths=utils.rglob(
+            match='*.ipynb',root=path,exclude_dirs=con.fig('EXCLUDE_DIRS'))
+        file_paths=[_clean_path(file_path) for file_path in file_paths]
         if destination_path:
             print('\nnb_git[WARNING]: destination_path ignored')
             print('\t- `nb_git {}` for directories always uses default path'.format(
@@ -242,6 +242,11 @@ def _tonb(args):
         return tonb_all()
     else:
         return tonb(args.source,args.destination)
+
+
+def _clean_path(string):
+    return re.sub('^\.\/','',string)
+
 
 #
 # MAIN

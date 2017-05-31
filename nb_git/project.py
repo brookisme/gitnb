@@ -112,19 +112,21 @@ class NBGitProject(object):
     
     def add(self,path,nbpy_path=None):
         msg=None
-        output_path=False
+        added_file=False
         nbks=self.notebooks()
         if not nbks.get(path):
             if nbpy_path in self.list_nbpys():
                 msg='nbpy.py file ({}) already added'.format(nbpy_path)
             else:
                 if os.path.isfile(path):
-                    output_path=NB2Py(path,nbpy_path).convert()
-                    self._append_notebooks(path,output_path)
+                    nbpy_path=NB2Py(path,nbpy_path).convert()
+                    self._append_notebooks(path,nbpy_path)
+                    if con.fig('GIT_ADD_ON_NB_GIT_ADD'):
+                        utils.git_add(nbpy_path)
                 else:
                     msg='notebook ({}) does not exist'.format(path)
             if msg: self._out(msg,'WARNING')
-        return output_path
+        return added_file
 
 
     def remove(self,path):
