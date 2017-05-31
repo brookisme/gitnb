@@ -1,132 +1,198 @@
 ## NBGIT 
-_this is a [work in progress](#wip)_
 
-GIT TRACKING FOR PYTHON NOTEBOOKS
+**GIT TRACKING FOR PYTHON NOTEBOOKS**
 
-###### USAGE:
+NBGIT doesn't actually track python notebooks. Instead, NGIT creates and updates python versions of your notebooks which are in turn tracked by git.
 
-```bash
-# in some project containing some ipython-notebooks
-git commit -am "some commit message"
-```
+Lets start with an example:
 
-Thats it!
-
-NBGIT doesn't actually track python notebooks. Instead, everytime you perform a `git commit`:
-
-* NBGIT automatically updates (or creates) a .py version (a _nbpy.py_ file) of the notebook 
-* NBGIT performs a `git add` for any new .py versions (you can turn this off by setting AUTO_ADD_NBPY=False)
-
-This allows you to track any changes to your notebook (by tracking changes to its .py copy). 
-
-If you ever need to recover a notebook from a previous commit, or you are collaborating with others and they too would like a working copy of the notebook, there is a [CLI](#cli) command that creates a new notebook from the .py versions.
-
-Here is an example nbpy.py file:
-
-https://github.com/brookisme/nb_git/blob/master/NBGit%20Example%20Notebook.nbpy.py
-
-File Location/Naming/Layout/Ect... is configurable with the user [config file](#config), and there is a CLI for performing these operations outside of the git commit.
-
---------------------------------
-### INSTALL NBGIT
+First we initialize a git repo containing python notebooks (we have (git)ignored `\*.ipynb`, `.ipynb_checkpoints`):
 
 ```bash
-# pip
-pip install -U nb_git
+test| $ tree
+.
+├── A-Notebook.ipynb
+├── A_BUGGY_NOTEBOOK.ipynb
+├── Py2NB.ipynb
+├── another_python_file.py
+├── some_python_file.py
+└── widget
+    ├── I\ have\ spaces\ in\ my\ name.ipynb
+    ├── Notebook1.ipynb
+    └── widget.py
 
-# latest-dev version
-git clone https://github.com/brookisme/nb_git.git
-cd nb_git
-sudo pip install -e .
+1 directory, 8 files
+test| $ git init
+Initialized empty Git repository in /Users/brook/code/jupyter/nbgit/test/.git/
+test| $ git add .
+test| $ git commit -am "Initial Commit: python files"
+[master (root-commit) b29b6c4] Initial Commit: python files
+ 4 files changed, 10 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 another_python_file.py
+ create mode 100644 some_python_file.py
+ create mode 100644 widget/widget.py
 ```
 
 
---------------------------------
-### PROJECT INSTALL
+Now we set up NBGIT
 
-* you should probably add `*.ipynb` to your `.gitignore`
-* before installing for your project you must first init the git repo
-* the command below will create or append your `.git/hooks/pre-commit` file so that, upon git commit it will:
-    * copy all .ipynb to .py files
-    * git add the new .py files to the repo
-* install git-hooks 
-
-```bash
-nb_git install
-```
-
-<a name='config'></a>
-* ( optional - only if you want to change the [defaults](https://github.com/brookisme/nb_git/blob/master/nb_git/default.config.yaml) ): install user config file (nb_git.config.yaml).  See comment-docs for details.
+1. initialize nb_git
+2. list existing notebooks
+3. add the notebooks we want to track
+  - we can 
+  - a python versions of the notebooks are created
+  - the python verisons are added to our git repo
 
 ```bash
-nb_git configure
+test|master $ nb_git init
+
+nb_git: INSTALLED 
+   - nbpy.py files will be created/updated/tracked
+   - install user config with: $ nb_git configure
+
+test|master $ nb_git list
+nb_git[untracked]
+  Py2NB.ipynb
+  A-Notebook.ipynb
+  widget/I have spaces in my name.ipynb
+  A_BUGGY_NOTEBOOK.ipynb
+  widget/Notebook1.ipynb
+
+# adding an individual file
+test|master $ nb_git add A_BUGGY_NOTEBOOK.ipynb 
+nbgit: add (A_BUGGY_NOTEBOOK.ipynb | nbpy/A_BUGGY_NOTEBOOK.nbpy.py)
+
+# adding all the files in a directory
+test|master $ nb_git add widget
+nbgit: add (widget/I have spaces in my name.ipynb | nbpy/I have spaces in my name.nbpy.py)
+nbgit: add (widget/Notebook1.ipynb | nbpy/Notebook1.nbpy.py)
+
+# you can see we now have python versions of these notebooks
+test|master $ tree
+.
+├── A-Notebook.ipynb
+├── A_BUGGY_NOTEBOOK.ipynb
+├── Py2NB.ipynb
+├── another_python_file.py
+├── nbpy
+│   ├── A_BUGGY_NOTEBOOK.nbpy.py
+│   ├── I\ have\ spaces\ in\ my\ name.nbpy.py
+│   └── Notebook1.nbpy.py
+├── some_python_file.py
+└── widget
+    ├── I\ have\ spaces\ in\ my\ name.ipynb
+    ├── Notebook1.ipynb
+    └── widget.py
+
+2 directories, 11 files
+
+# our list now conatins tracked and untracked notebooks
+test|master $ nb_git list
+nb_git[tracked]
+  widget/Notebook1.ipynb
+  widget/I have spaces in my name.ipynb
+  A_BUGGY_NOTEBOOK.ipynb
+nb_git[untracked]
+  A-Notebook.ipynb
+  Py2NB.ipynb
+
+# note these files are now in our git repo
+test|master $ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+  new file:   nbpy/A_BUGGY_NOTEBOOK.nbpy.py
+  new file:   nbpy/I have spaces in my name.nbpy.py
+  new file:   nbpy/Notebook1.nbpy.py
+
+# lets commit them
+test|master $ git commit -am "add nbpy.py versions of notebooks"
+[master 868b0a2] add nbpy.py versions of notebooks
+ 3 files changed, 98 insertions(+)
+ create mode 100644 nbpy/A_BUGGY_NOTEBOOK.nbpy.py
+ create mode 100644 nbpy/I have spaces in my name.nbpy.py
+ create mode 100644 nbpy/Notebook1.nbpy.py
 ```
 
---------------------------------
-<a name='cli'></a>
-### OTHER CLI COMMANDS:
 
-In addition to the commands above, the CLI provides `nblist` (notebook-list), `tonb` (to-notebook), `topy` (to-python) and  which do what you think they do.  
-
-Here is a `tonb` example:
+Oh No! One of our notebooks is buggy.  Let's look at the `nbpy.py` version of the notebook
 
 ```bash
-# using default destination path
-nb_git tonb -s soure_file.nbpy.py
+test|master $ cat nbpy/A_BUGGY_NOTEBOOK.nbpy.py 
 
-# specifiy destination path
-nb_git tonb -s soure_file.nbpy.py -d output_file.nbpy.ipynb
+
+"""[markdown]
+## This is a notebook with bugs
+"""
+
+
+"""[code]"""
+import numpy as np
+""""""
+
+
+"""[code]"""
+def feature(food=True):
+    if foo:
+        return "I am not a bug"
+    else:
+        return "I told you I am not a bug"
+""""""
+
+
+"""[code]"""
+print("Are you a bug?")
+print(feature(True))
+""""""
+
 ```
 
-Here are the docs:
+
+I just went to the python-notebook and fixed the bugs
 
 ```bash
-nb_git-repo|master $ nb_git --help
-usage: nb_git [-h] {install,configure,nblist,topy,tonb} ...
+# note the changes have not appeared in our nbpy.py file
+test|master $ git diff
 
-NBGIT: TRACKING FOR PYTHON NOTEBOOKS
+# `nb_git update` updates your tracked files
+test|master $ nb_git update
 
-positional arguments:
-  {install,configure,nblist,topy,tonb}
-    install             installs nb_git into local project (writes to
-                        .git/hooks/pre-commit
-    configure           creates local configuration file (./nb_git.config.yaml)
-    nblist              list all noteboks (that are not in EXCLUDE_DIRS
-    topy                topy .ipynb files to .nbpy.py files
-    tonb                tonb .ipynb files to .nbpy.py files
+# now we can see the bug fixes
+test|master $ git diff
+diff --git a/nbpy/A_BUGGY_NOTEBOOK.nbpy.py b/nbpy/A_BUGGY_NOTEBOOK.nbpy.py
+index e80204b..955b359 100644
+--- a/nbpy/A_BUGGY_NOTEBOOK.nbpy.py
++++ b/nbpy/A_BUGGY_NOTEBOOK.nbpy.py
+@@ -1,7 +1,7 @@
+ 
+ 
+ """[markdown]
+-## This is a notebook with bugs
++## This is a notebook without bugs
+ """
+ 
+ 
+@@ -11,7 +11,7 @@ import numpy as np
+ 
+ 
+ """[code]"""
+-def feature(food=True):
++def feature(foo=True):
+     if foo:
+         return "I am not a bug"
+     else:
 
-optional arguments:
-  -h, --help            show this help message and exit
+# lets fix that too!
+test|master $ git commit -am "fixed bug: nb-git-update command copied the bug fixes from the ipynb file to the nbpy.py verison of the notebook"
+[master 812a4f0] fixed bug: nb-git-update command copied the bug fixes from the ipynb file to the nbpy.py verison of the notebook
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
 ```
 
+Finally, lets say we actually need that buggy notebook after all
 ```bash
-# ** tonb has the same options **
-nb_git-repo|master $ nb_git topy --help
-usage: nb_git topy [-h] [-a ALL] [-s SOURCE] [-d DESTINATION] [-n NOISY]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -a ALL, --all ALL     topy all notebooks listed with <nblist>
-  -s SOURCE, --source SOURCE
-                        path to source-file to topy
-  -d DESTINATION, --destination DESTINATION
-                        (optional) path for output file. will use default path
-                        if not provided
-  -n NOISY, --noisy NOISY
-                        print out files being topy-ed
+TODO
 ```
 
---------------------------------
-<a name='wip'></a>
-#### Code Status
-
-This is a **WIP**, but seems to be working - albeit missing tests, bells and the whistles.
-
-- [x] IPYNB -> PY converter
-- [x] PRECOMMIT HOOK SCRIPT
-- [x] PRECOMMIT HOOK INSTALLER
-- [x] USER CONFIG
-- [x] INSTALLER CLI
-- [x] PY -> IPYNB converter
-- [ ] tests
-- [ ] other/refactoring/cleanup
