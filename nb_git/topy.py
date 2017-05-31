@@ -35,7 +35,7 @@ class NB2Py(object):
         """ Convert .ipynb to .nbpy.py
             returns file path of nbpy file
         """
-        if con.fig('CREATE_DIRS'): self._mkdirs()
+        if con.fig('CREATE_DIRS'): utils.mkdirs(self.py_path)
         with open(self.path,'r') as notebook_file:
             self.notebook_dict=json.load(notebook_file)
             file_exists=os.path.isfile(self.py_path)
@@ -79,12 +79,6 @@ class NB2Py(object):
         return lines
 
     
-    def _mkdirs(self):
-        """ Make parent dirs if they dont exist
-        """
-        utils.mkdirs(self.py_path)
-
-
     def _outputs(self,cell):
         lines=[]
         outputs=cell.get(OUTPUTS_KEY,False)

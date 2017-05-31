@@ -42,7 +42,7 @@ class Py2NB(object):
         """ Convert .nbpy.py to .ipynb
             returns file path of ipynb file
         """
-        if con.fig('CREATE_DIRS'): self._mkdirs()
+        if con.fig('CREATE_DIRS'): utils.mkdirs(self.nb_path)
         with open(self.nb_path, 'w') as outfile:
             outfile.write(self.json())
         return self.nb_path
@@ -165,33 +165,6 @@ class Py2NB(object):
         self.cell=None
         self.cell_type=None
         self.ipynb_dict={}
-
-
-    def _nbpath(self):
-        """ Get Path for nbpy.ipynb file
-            - if NBPY_NB_IDENT: use .{ident}.ipynb ext
-            - if NBPY_NB_DIR: put in nbpy_nb_dir
-            - else put in same direcotry as file
-        """
-        nbpy_ident=con.fig('NBPY_IDENT')
-        nbpy_nb_ident=con.fig('NBPY_NB_IDENT')
-        nbpy_nb_dir=con.fig('NBPY_NB_DIR')
-        if nbpy_nb_ident: ext='.{}.ipynb'.format(nbpy_nb_ident)
-        else: ext='.ipynb'
-        path=re.sub('\.py$','',self.path)
-        if nbpy_ident:
-            path=re.sub('\.{}$'.format(nbpy_ident),'',path)
-        nb_path='{}{}'.format(path,ext)
-        if utils.truthy(nbpy_nb_dir):
-            nb_name=os.path.basename(nb_path)
-            nb_path=os.path.join(nbpy_nb_dir,nb_name)
-        return nb_path
-
-
-    def _mkdirs(self):
-        """ Make parent dirs if they dont exist
-        """
-        utils.mkdirs(self.nb_path)
 
 
     def _clean(self,line):
