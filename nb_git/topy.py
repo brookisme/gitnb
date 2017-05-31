@@ -5,6 +5,7 @@ import errno
 import nb_git.config as con
 import nb_git.utils as utils
 from nb_git.constants import *
+from nb_git.paths import DEFAULT_PATHS
 
 
 class NB2Py(object):
@@ -15,7 +16,7 @@ class NB2Py(object):
     def __init__(self,path,py_path=None):
         self._init_params()
         self.path=path
-        self.py_path=py_path or utils.default_nbpy_path(path)
+        self.py_path=py_path or DEFAULT_PATHS.nbpy(path)
 
 
     def lines(self):

@@ -100,20 +100,3 @@ def mkdirs(path):
                 if exc.errno != errno.EEXIST:
                     raise
 
-
-def default_nbpy_path(ipynb_path):
-    """ Get Path for nbpy.py file
-        - if NBPY_IDENT: use .{ident}.py ext
-        - if NBPY_DIR: put in nbpy_dir
-        - else put in same direcotry as file
-    """
-    nbpy_ident=con.fig('NBPY_IDENT')
-    nbpy_dir=con.fig('NBPY_DIR')
-    if nbpy_ident: ext='.{}.py'.format(nbpy_ident)
-    else: ext='.py'
-    py_path=re.sub('.ipynb$',ext,ipynb_path)
-    if truthy(nbpy_dir):
-        py_name=os.path.basename(py_path)
-        py_path=os.path.join(nbpy_dir,py_name)
-    return py_path
-
