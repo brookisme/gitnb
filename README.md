@@ -40,9 +40,6 @@ Now we set up NBGIT
 1. initialize nb_git
 2. list existing notebooks
 3. add the notebooks we want to track
-  - we can 
-  - a python versions of the notebooks are created
-  - the python verisons are added to our git repo
 
 ```bash
 test|master $ nb_git init
