@@ -6,7 +6,7 @@ import errno
 import nb_git.config as con
 import nb_git.utils as utils
 from nb_git.constants import *
-from nb_git.paths import DEFAULT_PATHS
+import nb_git.default as default
 
 
 class Py2NB(object):
@@ -17,7 +17,7 @@ class Py2NB(object):
     def __init__(self,path,nb_path=None):
         self._init_params()
         self.path=path
-        self.nb_path=nb_path or DEFAULT_PATHS.ipynb(path)
+        self.nb_path=nb_path or default.ipynb_path(path)
 
 
     def json(self):

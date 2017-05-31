@@ -1,5 +1,23 @@
 ###########################################################
 #
+# GIT CONFIG
+#
+###########################################################
+
+# """ NBPY_DIR/CREATE_DIRS
+#
+#      GIT_ADD_ON_NB_GIT_ADD: call `git add` for new nbpy files
+#      UPDATE_ON_COMMIT: update all tracked files before `git commit`
+#      AUTO_TRACK_ALL_NOTEBOOKS: `nb_git add` all notebooks before `git commit`
+#
+# """
+GIT_ADD_ON_NB_GIT_ADD: True
+UPDATE_ON_COMMIT: True
+AUTO_TRACK_ALL_NOTEBOOKS: False
+
+
+###########################################################
+#
 # DIRECTORY/FILE CONFIG
 #
 ###########################################################

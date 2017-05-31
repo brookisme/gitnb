@@ -1,5 +1,7 @@
 import os
+import re
 import nb_git.utils as utils
+import nb_git.config as con
 from nb_git.topy import NB2Py
 from nb_git.paths import *
 
@@ -17,30 +19,58 @@ NOTEBOOKS_FMT='{} {} {}'
 #
 class NBGitProject(object):
     
+
+    #
+    # STATIC METHODS
+    #
+    @staticmethod
+    def initialize():
+        """ Installs NBGIT
+            - installs git pre-commit hook
+            - creates .nb_git dir
+        """
+        if os.path.isfile(GIT_PC):
+            nb_match=utils.nb_matching_lines('nb_git',GIT_PC)
+        else:
+            nb_match=0
+        if nb_match>0:
+            print("\nnb_git[WARNING]:")
+            print("\tit appears you have already initialized nb_git for")
+            print("\tthis project. verify: cat .git/hooks/pre-commit\n")
+        else:
+            if os.path.exists(GIT_DIR):
+                cmd1='cp -R {} {}'.format(DOT_NBGIT_CONFIG_DIR,NBGIT_CONFIG_DIR)
+                os.system(cmd1)
+                utils.copy_append(PRECOMMIT_SCRIPT,GIT_PC)
+                cmd2='chmod +x {}'.format(GIT_PC)
+                os.system(cmd2)
+                print("\nnb_git: INSTALLED ")
+                print("\t - nbpy.py files will be created/updated/tracked")
+                print("\t - install user config with: $ nb_git configure\n")
+            else:
+                print("nb_git: MUST INITIALIZE GIT")
+
+
+    @staticmethod
+    def configure():
+        """ Install config file
+            allows user to change config
+        """
+        utils.copy_append(DEFAULT_CONFIG,USER_CONFIG,'w')
+        print("nb_git: USER CONFIG FILE ADDED ({}) ".format(USER_CONFIG))
+
+
     
+
+    #
+    # INSTANCE METHODS
+    #
     def __init__(self):
         self._notebooks= None
         self._all_notebooks= None
         self._tracked_notebooks= None
         self._untracked_notebooks= None
 
-
-    def initialize(self):
-        """ Installs NBGIT
-            - installs git pre-commit hook
-            - creates .nb_git dir
-        """
-        if os.path.exists(GIT_DIR):
-            cmd1='cp -R {} {}'.format(DOT_NBGIT_CONFIG_DIR,NBGIT_CONFIG_DIR)
-            os.system(cmd1)
-            utils.copy_append(PRECOMMIT_SCRIPT,GIT_PC)
-            cmd2='chmod +x {}'.format(GIT_PC)
-            os.system(cmd2)
-            print("nb_git: INSTALLED ")
-            print("\t - nbpy.py files will be created/updated/tracked")
-            print("\t - install user config with: $ nb_git configure")
-        else:
-            print("nb_git: MUST INITIALIZE GIT")
 
 
     def all_notebooks(self):
@@ -74,25 +104,27 @@ class NBGitProject(object):
         tracked_set=set(self.list_notebooks())
         return list(all_set-tracked_set)
 
+
+    def update(self):
+        for path,nbpy_path in self.notebooks().iteritems():
+            NB2Py(path,nbpy_path).convert()
+
     
     def add(self,path,nbpy_path=None):
+        msg=None
+        output_path=False
         nbks=self.notebooks()
-        if nbks.get(path):
-            level='WARNING'
-            msg='{} already tracked by {}'.format(path,nbks.get(path))
-        elif nbpy_path in self.list_nbpys():
-            level='WARNING'
-            msg='nbpy.py file ({}) already added'.format(nbpy_path)
-        else:
-            if os.path.isfile(path):
-                nbpy_path=NB2Py(path,nbpy_path).convert()
-                self._append_notebooks(path,nbpy_path)
-                utils.git_add(nbpy_path)
-                msg=None
+        if not nbks.get(path):
+            if nbpy_path in self.list_nbpys():
+                msg='nbpy.py file ({}) already added'.format(nbpy_path)
             else:
-                level='WARNING'
-                msg='notebook ({}) does not exist'.format(path)
-        if msg: self._out(msg,level)
+                if os.path.isfile(path):
+                    output_path=NB2Py(path,nbpy_path).convert()
+                    self._append_notebooks(path,output_path)
+                else:
+                    msg='notebook ({}) does not exist'.format(path)
+            if msg: self._out(msg,'WARNING')
+        return output_path
 
 
     def remove(self,path):
@@ -115,6 +147,7 @@ class NBGitProject(object):
                 utils.remove_lines(path,NOTEBOOK_LIST)
                 msg="{} no longer being tracked".format(path)
         self._out(msg,level)
+        return path
 
 
     def _append_notebooks(self,path,nbpy_path):
@@ -136,5 +169,4 @@ class NBGitProject(object):
 
     def _clean(self,string):
         return string.strip(' ').strip('\n').strip(' ')
-
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from __future__ import print_function
 import nb_git
+import nb_git.config as con
 
 
 #########################################################################
@@ -19,6 +20,11 @@ import nb_git
 #
 # CONVERT
 #
-nb_git.topy_all()
+if con.fig('AUTO_TRACK_ALL_NOTEBOOKS'):
+    nb_git.add('.')
+
+
+if con.fig('UPDATE_ON_COMMIT'):
+    nb_git.update()
 
 
