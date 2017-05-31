@@ -10,7 +10,7 @@ setup(
   download_url = 'https://github.com/brookisme/nb_git/tarball/0.1',
   keywords = ['ipython', 'notebook','git'],
   include_package_data=True,
-  data_files=[('config',['nb_git/default.config.yaml','nb_git/precommit'])],
+  data_files=[('config',['nb_git/default.config.yaml','nb_git/dot_nb_git/*'])],
   classifiers = [],
   entry_points={
       'console_scripts': [

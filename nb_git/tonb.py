@@ -7,6 +7,7 @@ import nb_git.config as con
 import nb_git.utils as utils
 from nb_git.constants import *
 
+
 class Py2NB(object):
     """CONVERT NBPY to Notebook
         Args:
@@ -25,7 +26,7 @@ class Py2NB(object):
             - returns ipynb json 
         """
         if not self._json:
-            for line in self._read_py_file(self.path):
+            for line in utils.read_lines(self.path):
                 self._process_line(line)
             self.ipynb_dict['cells']=self.cells
             self.ipynb_dict.update(self._meta())
@@ -190,15 +191,6 @@ class Py2NB(object):
         """ Make parent dirs if they dont exist
         """
         utils.mkdirs(self.nb_path)
-
-
-    def _read_py_file(self,path):
-        """ Read file
-            return lines list
-        """ 
-        with open(path,'r') as pyfile:
-            lines=pyfile.readlines()
-        return lines
 
 
     def _clean(self,line):

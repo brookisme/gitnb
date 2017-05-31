@@ -15,7 +15,7 @@ class NB2Py(object):
     def __init__(self,path,py_path=None):
         self._init_params()
         self.path=path
-        self.py_path=py_path or self._pypath()
+        self.py_path=py_path or utils.default_nbpy_path(path)
 
 
     def lines(self):
@@ -41,8 +41,6 @@ class NB2Py(object):
             with open(self.py_path,'w') as py_file:
                 for line in self.lines():
                     py_file.write('{}\n'.format(line))
-            if (not file_exists) and con.fig('AUTO_ADD_NBPY'):
-                utils.git_add(self.py_path)
         return self.py_path
 
 
@@ -78,23 +76,6 @@ class NB2Py(object):
                 lines.append(CODE_END)     
   
         return lines
-
-
-    def _pypath(self):
-        """ Get Path for nbpy.py file
-            - if NBPY_IDENT: use .{ident}.py ext
-            - if NBPY_DIR: put in nbpy_dir
-            - else put in same direcotry as file
-        """
-        nbpy_ident=con.fig('NBPY_IDENT')
-        nbpy_dir=con.fig('NBPY_DIR')
-        if nbpy_ident: ext='.{}.py'.format(nbpy_ident)
-        else: ext='.py'
-        py_path=re.sub('.ipynb$',ext,self.path)
-        if utils.truthy(nbpy_dir):
-            py_name=os.path.basename(py_path)
-            py_path=os.path.join(nbpy_dir,py_name)
-        return py_path
 
     
     def _mkdirs(self):
