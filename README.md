@@ -255,8 +255,8 @@ $ gitnb commit -am "I just updated and commited every notebook in my project"
 
 How in the what? Two things are going on here
 
-1. We are using [commit](#commit)-ing with `gitnb commit` instead of `git commit`
-2. I've installed the [user config](#configure) and set
+1. We are [commit](#commit)-ing with `gitnb commit` instead of `git commit`
+2. I've [installed](#configure) the user config and set
 
 ```bash
 # ./gitnb.config.yaml
@@ -268,8 +268,8 @@ AUTO_TRACK_ALL_NOTEBOOKS: True
 
 Now each time I `gitnb commit`:
 
-* All new notebooks are [add](#add)-ed to be tracked by gitnb
-* All notebooks are [update](#update)-ed
+* All new notebooks are [add](#add)ed to be tracked by gitnb
+* All notebooks are [update](#update)ed
 * All changes are added to the git repo
 * `git commit --allow-empty` is [called](#commit)
 
