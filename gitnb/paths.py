@@ -16,5 +16,6 @@ USER_CONFIG='./gitnb.config.yaml'
 DOT_GITNB_CONFIG_DIR='{}/dot_gitnb'.format(GITNB_DIR)
 GITNB_CONFIG_DIR='./.gitnb'
 PRECOMMIT_SCRIPT='{}/precommit'.format(DOT_GITNB_CONFIG_DIR)
+DEFAULT_GITIGNORE='{}/default_gitignore'.format(DOT_GITNB_CONFIG_DIR)
 NOTEBOOK_LIST='{}/notebooks'.format(GITNB_CONFIG_DIR)
 
