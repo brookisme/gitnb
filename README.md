@@ -190,6 +190,27 @@ test|master $ git commit -am "fixed bug: nb-git-update command copied the bug fi
 
 Finally, lets say we actually need that buggy notebook after all
 ```bash
-TODO
+test|master $ git checkout 868b0a2
+Note: checking out '868b0a2'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b <new-branch-name>
+
+HEAD is now at 868b0a2... add nbpy.py versions of notebooks
+test|(HEAD detached at 868b0a2) $ nb_git tonb nbpy/A_BUGGY_NOTEBOOK.nbpy.py 
+test|(HEAD detached at 868b0a2) $ tree nbpy_nb
+nbpy_nb
+└── A_BUGGY_NOTEBOOK.nbpy.ipynb
+
+0 directories, 1 file
 ```
+
+My bugs are back!
+
 

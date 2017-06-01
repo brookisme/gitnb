@@ -229,19 +229,15 @@ def _remove(args):
 
 
 def _topy(args):
-    conv_all=utils.truthy(args.all)
-    if conv_all: 
-        return topy_all()
-    else:
-        return topy(args.source,args.destination)
+    destination_path=args.destination_path
+    if not utils.truthy(destination_path): destination_path=None
+    return topy(args.path,destination_path)
 
 
 def _tonb(args):
-    conv_all=utils.truthy(args.all)
-    if conv_all: 
-        return tonb_all()
-    else:
-        return tonb(args.source,args.destination)
+    destination_path=args.destination_path
+    if not utils.truthy(destination_path): destination_path=None
+    return tonb(args.path,destination_path)
 
 
 def _clean_path(string):
@@ -310,35 +306,25 @@ def main():
     parser_topy=subparsers.add_parser(
         'topy',
         help='topy .ipynb files to .nbpy.py files')
-    parser_topy.add_argument(
-        '-a','--all',default=False,
-        help='topy all notebooks listed with <list>')
-    parser_topy.add_argument(
-        '-s','--source',
-        help='path to source-file to topy')
-    parser_topy.add_argument(
-        '-d','--destination',default=None,
-        help='(optional) path for output file. will use default path if not provided')
-    parser_topy.add_argument(
-        '-n','--noisy',default=True,help='print out files being topy-ed')
+    parser_topy.add_argument('path',
+        help='path to ipynb file')   
+    parser_topy.add_argument('destination_path',
+        nargs='?',
+        default=None,
+        help='if falsey uses default destination path')
     parser_topy.set_defaults(func=_topy)
+    
     
     """ tonb """
     parser_tonb=subparsers.add_parser(
         'tonb',
         help='tonb .ipynb files to .nbpy.py files')
-    parser_tonb.add_argument(
-        '-a','--all',default=False,
-        help='tonb all python files listed with <nbpylist>')
-    parser_tonb.add_argument(
-        '-s','--source',
-        help='path to source-file to topy')
-    parser_tonb.add_argument(
-        '-d','--destination',default=None,
-        help='(optional) path for output file. will use default path if not provided')
-    parser_tonb.add_argument(
-        '-n','--noisy',default=True,
-        help='print out files being tonb-ed')
+    parser_tonb.add_argument('path',
+        help='path to ipynb file')   
+    parser_tonb.add_argument('destination_path',
+        nargs='?',
+        default=None,
+        help='if falsey uses default destination path')
     parser_tonb.set_defaults(func=_tonb)   
     
     """ run """
