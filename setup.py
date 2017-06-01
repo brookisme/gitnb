@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'gitnb',
   packages = ['gitnb'],
-  version = '0.0.1.3',
+  version = '0.0.1.4',
   description = 'Git Tracking for Python Notebooks',
   author = 'Brookie Guzder-Williams',
   author_email = 'brook.williams@gmail.com',
