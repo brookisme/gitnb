@@ -75,7 +75,7 @@ def diff(path):
         1. create tmp copy
         2. diff tmp with current
     """
-    nbpy_path GNB().notebooks().get(path)
+    nbpy_path=GNB().notebooks().get(path)
     if nbpy_path:
         _convert_to_py(path,DIFF_TMP_PATH,False)
         print("\ngitnb[diff]: {}[->nbpy.py] - {}".format(path,nbpy_path))
@@ -89,7 +89,7 @@ def diff(path):
 def list_files(list_type=ALL_NOTEBOOKS):
     """ Notebook paths as list
     """
-    prj GNB()
+    prj=GNB()
     if list_type==ALL_NOTEBOOKS:
         return prj.list_notebooks(), prj.list_untracked()
     elif list_type==TRACKED_NOTEBOOKS:
@@ -216,6 +216,12 @@ def _print_file_diff(path_a,path_b):
         print(''.join(list(diff)))
 
 
+def _clean_path(string):
+    return re.sub('^\.\/','',string)
+
+
+
+
 #######################################################
 #
 # CLI 
@@ -279,8 +285,10 @@ def _tonb(args):
     return tonb(args.path,destination_path)
 
 
-def _clean_path(string):
-    return re.sub('^\.\/','',string)
+def _commit(args):
+    print('commit',type(args.params),args.params)
+
+
 
 
 #
@@ -381,6 +389,16 @@ def main():
         help='if falsey uses default destination path')
     parser_tonb.set_defaults(func=_tonb)   
     
+
+    """ commit """
+    parser_commit=subparsers.add_parser(
+        'commit',
+        help='gitnb update, followed git add on all tracked nbpy files, followed by git commit')
+    parser_commit.add_argument('params',
+        nargs='*',
+        help='git commit flags and params')
+    parser_commit.set_defaults(func=_commit)
+
     """ run """
     args=parser.parse_args()
     args.func(args)
