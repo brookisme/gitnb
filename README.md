@@ -270,7 +270,7 @@ Initialize Project:
 * creates or appends .git/hooks/pre-commit for auto-tracking config
 
 ```bash
-nb_git init
+$ nb_git init
 ```
 ([back to methods](#methods))
 
@@ -283,7 +283,7 @@ Install Config:
 * installs nb_git.config.yaml directory at the project root
 
 ```bash
-nb_git configure
+$ nb_git configure
 ```
 ([back to methods](#methods))
 
@@ -302,15 +302,15 @@ _____
 ###### list:
 List Project Notebooks, or nbpy.py files
 
-positional arg (type):
+positional arg (*type*):
 
-* (default) all: list tracked and untracked notebooks
-* tracked: list tracked notebooks
-* untracked: list untracked notebooks
-* nbpy: list nbpy.py files
- 
+* (default) **all**: list tracked and untracked notebooks
+* **tracked**: list tracked notebooks
+* **untracked**: list untracked notebooks
+* **nbpy**: list nbpy.py files
+
 ```bash
-nbgit-repo|master $ nb_git list --help
+$ nb_git list --help
 usage: nb_git list [-h] [type]
 
 positional arguments:
@@ -320,22 +320,57 @@ positional arguments:
 
 _____
 <a name='add'></a>
+Add notebook to nb_git:
+
+* converts notebook(s) to nbpy.py file(s)
+* adds notebook-nbpy pair to nb_git tracking list
+* performs a `git add` on nbpy.py file(s)
+* path: path to file or directory 
+* destination_path: (optional) 
+    * if path is a file path nbpy file will be at destination_path
+    * if destination_path is falsey (recommended) default path is used
+    * default path can be changed with [user config](#config)
+    * if path is a direcotry path, default config is always used
+
 ###### add:
 ```bash
+$ nb_git add --help
+usage: nb_git add [-h] path [destination_path]
+
+positional arguments:
+  path              path to ipynb file
+  destination_path  if falsey uses default destination path
 ```
 ([back to methods](#methods))
 
 _____
 <a name='remove'></a>
 ###### remove:
+Remove notebook from nb_git:
+
+* notebook will no longer be tracked
+* nbpy.py file will **not** be deleted
+* ipynb file will **not** be deleted
+
 ```bash
+$ nb_git remove --help
+usage: nb_git remove [-h] path
+
+positional arguments:
+  path        path to ipynb file
 ```
 ([back to methods](#methods))
 
 _____
 <a name='update'></a>
 ###### update:
+Update nbpy files:
+
+* will update nbpy files with current content from your tracked notebooks
+* make sure your notebook has been saved!
+
 ```bash
+$ nb_git update
 ```
 ([back to methods](#methods))
 
@@ -350,14 +385,37 @@ TODO: DIFF CURRENT AND LAST
 _____
 <a name='topy'></a>
 ###### topy:
+To-Python:
+
+* converts notebook(s) to nbpy.py file(s)
+* similar to [add](#add) but does not nb_git or git track
+
 ```bash
+$ nb_git topy --help
+usage: nb_git topy [-h] path [destination_path]
+
+positional arguments:
+  path              path to ipynb file
+  destination_path  if falsey uses default destination path
 ```
 ([back to methods](#methods))
 
 _____
 <a name='tonb'></a>
 ###### tonb:
+To-Notebook:
+
+* creates new notebook from nbpy.py python file
+* great for collaborators!
+* great for recovering lost work!
+
 ```bash
+$ nb_git tonb --help
+usage: nb_git tonb [-h] path [destination_path]
+
+positional arguments:
+  path              path to ipynb file
+  destination_path  if falsey uses default destination path
 ```
 ([back to methods](#methods))
 
