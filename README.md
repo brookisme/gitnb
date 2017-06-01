@@ -213,6 +213,6 @@ nbpy_nb
 
 My bugs are back!
 
-![nbpy_nb/A_BUGGY_NOTEBOOK.nbpy.ipynb](https://github.com/brookisme/nb_git/blob/master/buggy_notebook.png)
+![nbpy_nb/A_BUGGY_NOTEBOOK.nbpy.ipynb](https://github.com/brookisme/nb_git/blob/master/buggy.png)
 
 
