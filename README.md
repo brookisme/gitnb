@@ -492,6 +492,12 @@ Update and Commit:
   - -m flag (add all - same as git commit -m)
 
 ```bash
+#
+# this line of code is equivalent to
+# - $ gitnb update
+# - $ git add .
+# - $ git commit --allow-empty -am "COMMIT MESSAGE"
+#
 $ gitnb commit [-a] [-m "COMMIT MESSAGE"]
 ```
 ([back to methods](#methods))
