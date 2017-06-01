@@ -9,7 +9,7 @@ import gitnb.utils as utils
 from gitnb.topy import NB2Py
 from gitnb.tonb import Py2NB
 import gitnb.config as con
-from gitnb.project import GitNBProject as NBGP
+from gitnb.project import GitNBProject as GNB
 
 
 
@@ -37,14 +37,14 @@ def initialize():
         - installs git pre-commit hook
         - creates .gitnb dir
     """
-    NBGP.initialize()
+    GNB.initialize()
 
 
 def configure():
     """ Install config file
         allows user to change config
     """
-    NBGP.configure()
+    GNB.configure()
 
 
 def gitignore():
@@ -75,7 +75,7 @@ def diff(path):
         1. create tmp copy
         2. diff tmp with current
     """
-    nbpy_path=NBGP().notebooks().get(path)
+    nbpy_path GNB().notebooks().get(path)
     if nbpy_path:
         _convert_to_py(path,DIFF_TMP_PATH,False)
         print("\ngitnb[diff]: {}[->nbpy.py] - {}".format(path,nbpy_path))
@@ -89,7 +89,7 @@ def diff(path):
 def list_files(list_type=ALL_NOTEBOOKS):
     """ Notebook paths as list
     """
-    prj=NBGP()
+    prj GNB()
     if list_type==ALL_NOTEBOOKS:
         return prj.list_notebooks(), prj.list_untracked()
     elif list_type==TRACKED_NOTEBOOKS:
@@ -106,7 +106,7 @@ def update():
     """ 
         - Update all nbpy files
     """
-    NBGP().update()
+    GNB().update()
 
 
 
@@ -117,7 +117,7 @@ def add(path,destination_path=None):
         - Add NBPY file to git repo (if GIT_ADD_ON_GitNB_ADD=True)
     """
     nbpy_path=_safe_path_exec(
-        NBGP().add,
+        GNB().add,
         'add',
         path,
         destination_path)
@@ -130,7 +130,7 @@ def remove(path):
         - does not change git tracking
     """
     return _safe_path_exec(
-        NBGP().remove,
+        GNB().remove,
         'remove',
         path,
         False)
