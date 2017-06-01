@@ -5,9 +5,10 @@
 A simple idea: GitNB doesn't actually track python notebooks. Instead, GitNB creates and updates python versions of your notebooks which are in turn tracked by git.
 
 1. [Quick Start](#quick)
-2. [Install](#install)
-3. [Docs](#docs)
-4. [User Config](#config)
+2. [But I'm Lazy!!!](#lazy)
+3. [Install](#install)
+4. [Docs](#docs)
+5. [User Config](#config)
 
 _____
 <a name='quick'></a>
@@ -243,6 +244,38 @@ My bugs are back!
 ![nbpy_nb/A_BUGGY_NOTEBOOK.nbpy.ipynb](https://github.com/brookisme/gitnb/blob/master/buggy.png)
 
 _____
+<a name='lazy'></a>
+### LAZY CONFIG:
+
+If the [quick-start](#quick) seemed like too much how about this...
+
+```bash
+$ gitnb commit -am "I just updated and commited every notebook in my project" 
+```
+
+How in the what? Two things are going on here
+
+1. We are using [commit](#commit)-ing with `gitnb commit` instead of `git commit`
+2. I've installed the [user config](#configure) and set
+
+```bash
+# ./gitnb.config.yaml
+...
+GIT_ADD_ON_GITNB_UPDATE: True
+AUTO_TRACK_ALL_NOTEBOOKS: True
+...
+```
+
+Now each time I `gitnb commit`:
+
+* All new notebooks are [add](#add)-ed to be tracked by gitnb
+* All notebooks are [update](#update)-ed
+* All changes are added to the git repo
+* `git commit --allow-empty` is [called](#commit)
+
+Note: the `--allow-empty` flag is there because the at the time of the commit (before the nbpy.py files are generated there may or may not be changes to commit)
+
+_____
 <a name='install'></a>
 ### INSTALL:
 
@@ -458,7 +491,11 @@ _____
 
 The [configure](#configure) method installs `gitnb.config.yaml` in your root directory.  This is a copy of the [default config](https://github.com/brookisme/gitnb/blob/master/gitnb/default.config.yaml). Note at anytime you can go back to the default configuration by simply deleting the user config file (`gitnb.config.yaml`).
 
-There are comment-docs in the config file that should explain what each configuration control.  However I thought I'd touch a couple of the perhaps more interesting configurations here.
+There are comment-docs in the config file that should explain what each configuration control. However I thought I'd touch a couple of the perhaps more interesting configurations here.
+
+##### LAZY INSTALL
+
+see [But I'm Lazy!](#lazy)
 
 ##### GIT_ADD_ON_GITNB_ADD (defaults to True):
 

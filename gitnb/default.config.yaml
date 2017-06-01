@@ -8,12 +8,18 @@
 #
 #      GIT_ADD_ON_GITNB_ADD: call `git add` for new nbpy files
 #      UPDATE_ON_COMMIT: update all tracked files before `git commit`
+#      UPDATE_ON_COMMIT: call `gitnb update` before git commit in gitnb commit
 #      GIT_ADD_ON_GITNB_UPDATE: call `git add` after `gitnb update`
 #      AUTO_TRACK_ALL_NOTEBOOKS: `gitnb add` all notebooks before `git commit`
 #
 # """
 GIT_ADD_ON_GITNB_ADD: True
 UPDATE_ON_COMMIT: True
+UPDATE_ON_GITNB_COMMIT: True
+#
+# SET THESE TO True ( and use gitnb commit ) FOR LAZY CONFIG 
+# - (https://github.com/brookisme/gitnb#lazy)
+#
 GIT_ADD_ON_GITNB_UPDATE: False
 AUTO_TRACK_ALL_NOTEBOOKS: False
 

@@ -157,6 +157,17 @@ def tonb(path,destination_path=None):
         destination_path)
 
 
+def commit(param_list):
+    """ ALLOW FOR EMPTY COMMITS
+        * if (UPDATE_ON_GITNB_COMMIT) perform 'gitnb update'
+        * -a flag (add all - same as git commit -a)
+        * -m flag (add all - same as git commit -m)
+    """
+    if con.fig('UPDATE_ON_GITNB_COMMIT'): update()
+    param_list.insert(0,'git commit --allow-empty')
+    cmd=' '.join(param_list)
+    os.system(cmd)
+
 
 #
 # HELPERS
@@ -286,7 +297,11 @@ def _tonb(args):
 
 
 def _commit(args):
-    print('commit',type(args.params),args.params)
+    param_list=[]
+    if args.all: param_list.append('-a')
+    if args.message: 
+        param_list.append('-m "{}"'.format(args.message))
+    commit(param_list)
 
 
 
@@ -394,10 +409,12 @@ def main():
     parser_commit=subparsers.add_parser(
         'commit',
         help='gitnb update, followed git add on all tracked nbpy files, followed by git commit')
-    parser_commit.add_argument('params',
-        nargs='*',
-        help='git commit flags and params')
+    parser_commit.add_argument(
+        '-a','--all', action='store_true',help='git add all')
+    parser_commit.add_argument(
+        '-m','--message',default=None,help='git commit message')
     parser_commit.set_defaults(func=_commit)
+
 
     """ run """
     args=parser.parse_args()
