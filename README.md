@@ -242,84 +242,84 @@ _____
 <a name='methods'></a>
 ###### methods:
 
-1. [init](#init)
-2. [configure](#configure)
-3. [gitignore](#gitignore)
-4. [list](#list)
-5. [add](#add)
-6. [remove](#remove)
-7. [update](#update)
-8. [diff](#diff)
-9. [topy](#topy)
-10. [tonb](#tonb)
+1. [init](#init): initialize nb_git for project
+2. [configure](#configure): install nb_git.config.yaml for user config
+3. [gitignore](#gitignore): add ipynb \& nb_git files to gitignore
+4. [list](#list): list tracked notebooks or nbpy.py files
+5. [add](#add): begin tracking notebook
+6. [remove](#remove): stop tracking notebook
+7. [update](#update): update nbpy.py files with recent notebook edits
+8. [diff](#diff): perform diff between current notebook version and last [update](updated)-ed version
+9. [topy](#topy): convert notebook to nbpy.py file (without [add](#add)-ing)
+10. [tonb](#tonb): convert nbpy.py file to python notebook
 
 _____
 <a name='init'></a>
 ###### init:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
 _____
 <a name='configure'></a>
 ###### configure:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
 _____
 <a name='gitignore'></a>
 ###### gitignore:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
 _____
 <a name='list'></a>
 ###### list:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
 _____
 <a name='add'></a>
 ###### add:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
 _____
 <a name='remove'></a>
 ###### remove:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
 _____
 <a name='update'></a>
 ###### update:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
 _____
 <a name='diff'></a>
 ###### diff:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
 _____
 <a name='topy'></a>
 ###### topy:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
 _____
 <a name='tonb'></a>
 ###### tonb:
 ```bash
 ```
-([back to methods])(#methods)
+([back to methods](#methods))
 
