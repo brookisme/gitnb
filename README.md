@@ -13,7 +13,9 @@ _____
 <a name='quick'></a>
 #### QUICK START:
 
-This quick-start is just an example. It looks long, but its not. There's 
+This quick-start is just an example. It looks long (due to bash-output) but its quick: 2 minute tops.
+
+A. INITIALIZE GIT REPO
 
 ```bash
 test| $ tree
@@ -42,7 +44,7 @@ test| $ git commit -am "Initial Commit: python files"
 ```
 
 
-Now we set up NBGIT
+B. INITIALIZE NB_GIT, ADD NOTEBOOKS TO NB_GIT TO BE TRACKED
 
 ```bash
 
@@ -119,6 +121,9 @@ test|master $ git commit -am "add nbpy.py versions of notebooks"
  create mode 100644 nbpy/Notebook1.nbpy.py
 ```
 
+
+C. QUICK LOOK AT A "NBPY.PY" VERSION OF A NOTEBOOK
+
 Oh No! One of our notebooks is buggy.  Let's look at the `nbpy.py` version of the notebook
 
 ```bash
@@ -150,6 +155,8 @@ print(feature(True))
 """"""
 
 ```
+
+D. UPDATE NBPY.PY FILE AFTER EDITING YOUR NOTEBOOK
 
 I just went to the python-notebook and fixed the bugs
 
@@ -191,6 +198,8 @@ test|master $ git commit -am "fixed bug: i fixed .ipynb, nb_git fixed .nbpy.py"
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 ```
+
+E. CREATE PYTHON-NOTEBOOK FROM NBPY.PY FILE
 
 Finally, lets say we actually need that buggy notebook after all
 
