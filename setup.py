@@ -14,7 +14,8 @@ setup(
     ('config',[
         'gitnb/default.config.yaml',
         'gitnb/dot_gitnb/notebooks',
-        'gitnb/dot_gitnb/precommit'
+        'gitnb/dot_gitnb/precommit',
+        'gitnb/dot_gitnb/default_gitignore'
       ]
     )
   ],
