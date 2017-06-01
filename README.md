@@ -310,9 +310,10 @@ usage: gitnb [-h] {init,configure,list,update,add,remove,topy,tonb} ...
 5. [add](#add): begin tracking notebook
 6. [remove](#remove): stop tracking notebook
 7. [update](#update): update nbpy.py files with recent notebook edits
-8. [diff](#diff): perform diff between current notebook version and last [update](#update)-ed version
-9. [topy](#topy): convert notebook to nbpy.py file (without [add](#add)-ing)
-10. [tonb](#tonb): convert nbpy.py file to python notebook
+8. [commit](#commit): update, followed by add, followed by `git commit`
+9. [diff](#diff): perform diff between current notebook version and last [update](#update)-ed version
+10. [topy](#topy): convert notebook to nbpy.py file (without [add](#add)-ing)
+11. [tonb](#tonb): convert nbpy.py file to python notebook
 
 _____
 <a name='init'></a>
@@ -431,6 +432,21 @@ Update nbpy files:
 
 ```bash
 $ gitnb update
+```
+([back to methods](#methods))
+
+_____
+<a name='commit'></a>
+###### commit:
+Update and Commit:
+
+* if (UPDATE_ON_GITNB_COMMIT) perform 'gitnb update'
+* call `git commit --allow-empty` with optional flags [a|m]:
+      * -a flag (add all - same as git commit -a)
+      * -m flag (add all - same as git commit -m)
+
+```bash
+$ gitnb commit [-a] [-m "COMMIT MESSAGE"]
 ```
 ([back to methods](#methods))
 
