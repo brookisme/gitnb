@@ -1,5 +1,6 @@
 import os
 import subprocess
+import difflib
 import fnmatch
 import re
 import gitnb.config as con

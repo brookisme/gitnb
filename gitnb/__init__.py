@@ -1,7 +1,9 @@
 from __future__ import print_function
 import os
+import subprocess
 import re
 import argparse
+import difflib
 import gitnb.paths as paths
 import gitnb.utils as utils
 from gitnb.topy import NB2Py
@@ -24,7 +26,7 @@ LIST_TYPES=[
     UNTRACKED_NOTEBOOKS,
     NBPYS]
 
-
+DIFF_TMP_PATH='./.gitnb/diff_tmp_nbpy_py'
 
 
 #
@@ -68,12 +70,20 @@ def gitignore():
         print("\ngitnb: appened user .gitignore with defaults")
 
 
-def diff():
+def diff(path):
     """ DIFF NOTEBOOKS
         1. create tmp copy
         2. diff tmp with current
     """
-    pass
+    nbpy_path=NBGP().notebooks().get(path)
+    if nbpy_path:
+        _convert_to_py(path,DIFF_TMP_PATH,False)
+        print("\ngitnb[diff]: {}[->nbpy.py] - {}".format(path,nbpy_path))
+        _print_file_diff(nbpy_path,DIFF_TMP_PATH)
+        os.remove(DIFF_TMP_PATH)
+    else:
+        msg="requested notebook <{}> is not being tracked by gitnb".format(path)
+        print("gitnb[WARNING]: {}".format(msg))
 
 
 def list_files(list_type=ALL_NOTEBOOKS):
@@ -177,10 +187,11 @@ def _exec(func,path,destination_path=None):
         func(path,destination_path)
 
 
-def _convert_to_py(path,destination_path=None):
-    print('\ngitnb[topy]:'.format(path))
-    print('\tPlease note that you are creating a nbpy file but')
-    print('\tnot tracking it. To track the file use "gitnb add"\n')
+def _convert_to_py(path,destination_path=None,warn=True):
+    if warn:
+        print('\ngitnb[topy]:'.format(path))
+        print('\tPlease note that you are creating a nbpy file but')
+        print('\tnot tracking it. To track the file use "gitnb add"\n')
     NB2Py(path,destination_path).convert()
 
 
@@ -195,6 +206,14 @@ def _print_list(list_type,items):
             print('\t{}'.format(item))
         print('')
 
+
+def _print_file_diff(path_a,path_b):
+    with open(path_a,'r') as file_a, open(path_b,'r') as file_b:
+        diff = difflib.unified_diff(
+            file_a.readlines(), 
+            file_b.readlines(), 
+            lineterm='')
+        print('\n'.join(list(diff)))
 
 
 #######################################################
@@ -218,6 +237,8 @@ def _configure(args):
 def _gitignore(args):
     return gitignore()
 
+def _diff(args):
+    return diff(args.path)
 
 def _update(args):
     return update()
@@ -288,6 +309,13 @@ def main():
         help='updates user .gitignore with defaults')
     parser_gitignore.set_defaults(func=_gitignore)  
 
+    """ diff """
+    parser_diff=subparsers.add_parser(
+        'diff',
+        help='diff current version of notebook with last updated version')
+    parser_diff.add_argument('path',
+        help='path to ipynb file')   
+    parser_diff.set_defaults(func=_diff)
 
     """ list """
     parser_list=subparsers.add_parser(
