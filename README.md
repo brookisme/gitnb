@@ -31,9 +31,12 @@ test| $ tree
     └── widget.py
 
 1 directory, 8 files
+
 test| $ git init
 Initialized empty Git repository in /Users/brook/code/jupyter/nbgit/test/.git/
+
 test| $ git add .
+
 test| $ git commit -am "Initial Commit: python files"
 [master (root-commit) b29b6c4] Initial Commit: python files
  4 files changed, 10 insertions(+)
