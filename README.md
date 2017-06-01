@@ -127,7 +127,6 @@ test|master $ git commit -am "add nbpy.py versions of notebooks"
 
 C. QUICK LOOK AT A "NBPY.PY" VERSION OF A NOTEBOOK
 
-Oh No! One of our notebooks is buggy.  Let's look at the `nbpy.py` version of the notebook
 
 ```bash
 test|master $ cat nbpy/A_BUGGY_NOTEBOOK.nbpy.py 
@@ -161,7 +160,7 @@ print(feature(True))
 
 D. UPDATE NBPY.PY FILE AFTER EDITING YOUR NOTEBOOK
 
-I just went to the python-notebook and fixed the bugs
+That notebook is buggy. ...<updating python notebook>... I just went to the python-notebook and fixed the bugs. Let's see what happened:
 
 ```bash
 # note the changes have not appeared in our nbpy.py file
