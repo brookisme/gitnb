@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
   name = 'nb_git',
   packages = ['nb_git'],
-  version = '0.0.0.10',
+  version = '0.0.0.11',
   description = 'Git Tracking for Python Notebooks',
   author = 'Brookie Guzder-Williams',
   author_email = 'brook.williams@gmail.com',
