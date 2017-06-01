@@ -2,10 +2,10 @@ import os
 import json
 import re
 import errno
-import nb_git.config as con
-import nb_git.utils as utils
-from nb_git.constants import *
-import nb_git.default as default
+import gitnb.config as con
+import gitnb.utils as utils
+from gitnb.constants import *
+import gitnb.default as default
 
 
 class NB2Py(object):

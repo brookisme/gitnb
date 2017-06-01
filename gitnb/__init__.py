@@ -2,12 +2,12 @@ from __future__ import print_function
 import os
 import re
 import argparse
-import nb_git.paths as paths
-import nb_git.utils as utils
-from nb_git.topy import NB2Py
-from nb_git.tonb import Py2NB
-import nb_git.config as con
-from nb_git.project import NBGitProject as NBGP
+import gitnb.paths as paths
+import gitnb.utils as utils
+from gitnb.topy import NB2Py
+from gitnb.tonb import Py2NB
+import gitnb.config as con
+from gitnb.project import GitNBProject as NBGP
 
 
 
@@ -31,9 +31,9 @@ LIST_TYPES=[
 # METHODS
 #
 def initialize():
-    """ Installs NBGIT
+    """ Installs GITNB
         - installs git pre-commit hook
-        - creates .nb_git dir
+        - creates .gitnb dir
     """
     NBGP.initialize()
 
@@ -90,8 +90,8 @@ def update():
 def add(path,destination_path=None):
     """ 
         - Convert Notebook to NBPY FILE
-        - Add to Notebooks list: .nb_git/notebooks
-        - Add NBPY file to git repo (if GIT_ADD_ON_NB_GIT_ADD=True)
+        - Add to Notebooks list: .gitnb/notebooks
+        - Add NBPY file to git repo (if GIT_ADD_ON_GitNB_ADD=True)
     """
     nbpy_path=_safe_path_exec(
         NBGP().add,
@@ -146,15 +146,15 @@ def _safe_path_exec(func,action,path,destination_path=None):
             match='*.ipynb',root=path,exclude_dirs=con.fig('EXCLUDE_DIRS'))
         file_paths=[_clean_path(file_path) for file_path in file_paths]
         if destination_path:
-            print('\nnb_git[WARNING]: destination_path ignored')
-            print('\t- `nb_git {}` for directories always uses default path'.format(
+            print('\ngitnb[WARNING]: destination_path ignored')
+            print('\t- `gitnb {}` for directories always uses default path'.format(
                 action))
-            print('\t- the default path is configurable (see nb_git configure)\n')
+            print('\t- the default path is configurable (see gitnb configure)\n')
             destination_path=None
         for file_path in file_paths:
             _exec(func,file_path,destination_path)
     else:
-        print('nb_git[ERROR]: {} does not exist'.format(path))
+        print('gitnb[ERROR]: {} does not exist'.format(path))
 
 
 def _exec(func,path,destination_path=None):
@@ -165,9 +165,9 @@ def _exec(func,path,destination_path=None):
 
 
 def _convert_to_py(path,destination_path=None):
-    print('\nnb_git[topy]:'.format(path))
+    print('\ngitnb[topy]:'.format(path))
     print('\tPlease note that you are creating a nbpy file but')
-    print('\tnot tracking it. To track the file use "nbgit add"\n')
+    print('\tnot tracking it. To track the file use "gitnb add"\n')
     NB2Py(path,destination_path).convert()
 
 
@@ -177,7 +177,7 @@ def _convert_to_nb(path,destination_path=None):
 
 def _print_list(list_type,items):
     if items:
-        print('nb_git[{}]'.format(list_type))
+        print('gitnb[{}]'.format(list_type))
         for item in items:
             print('\t{}'.format(item))
 
@@ -208,7 +208,7 @@ def _update(args):
 def _list(args):
     list_type=args.type
     if list_type not in LIST_TYPES:
-        print('nb_git[list]: ERROR - {} is not a vaild list type'.format(list_type))
+        print('gitnb[list]: ERROR - {} is not a vaild list type'.format(list_type))
     else:
         if list_type==ALL_NOTEBOOKS:
             tracked,untracked=list_files(list_type)
@@ -248,13 +248,13 @@ def _clean_path(string):
 # MAIN
 #
 def main():
-    parser=argparse.ArgumentParser(description='NBGIT: TRACKING FOR PYTHON NOTEBOOKS')
+    parser=argparse.ArgumentParser(description='GITNB: TRACKING FOR PYTHON NOTEBOOKS')
     subparsers=parser.add_subparsers()
     
     """ install """
     parser_init=subparsers.add_parser(
         'init',
-        help='initialize nb_git for local project')
+        help='initialize gitnb for local project')
     parser_init.set_defaults(func=_init)    
     
     """ configure """
@@ -296,7 +296,7 @@ def main():
     """ remove """
     parser_remove=subparsers.add_parser(
         'remove',
-        help='stops nb_git from tracking notebook')
+        help='stops gitnb from tracking notebook')
     parser_remove.add_argument('path',
         help='path to ipynb file')   
     parser_remove.set_defaults(func=_remove)

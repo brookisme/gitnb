@@ -2,7 +2,7 @@ import os
 import subprocess
 import fnmatch
 import re
-import nb_git.config as con
+import gitnb.config as con
 
 
 def rglob(match='*',root='.',exclude_dirs=[]):

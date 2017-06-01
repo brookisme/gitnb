@@ -3,7 +3,7 @@
 """[markdown]
 ## This is an example notebook
 
-The main purpose of this notebook is to have something to convert with nb_git.  There is nothing interesting to see here. In order to make this point perfectly clear, I will start with some difficult math...
+The main purpose of this notebook is to have something to convert with gitnb.  There is nothing interesting to see here. In order to make this point perfectly clear, I will start with some difficult math...
 """
 
 
@@ -73,16 +73,16 @@ f2(a,b)
 
 
 """[raw]
-nb_git-repo|master $ nb_git --help
-usage: nb_git [-h] {install,configure,nblist,convert} ...
+gitnb-repo|master $ gitnb --help
+usage: gitnb [-h] {install,configure,nblist,convert} ...
 
-NBGIT: TRACKING FOR PYTHON NOTEBOOKS
+GITNB: TRACKING FOR PYTHON NOTEBOOKS
 
 positional arguments:
   {install,configure,nblist,convert}
-    install             installs nb_git into local project (writes to
+    install             installs gitnb into local project (writes to
                         .git/hooks/pre-commit
-    configure           creates local configuration file (./nb_git_config.py)
+    configure           creates local configuration file (./gitnb_config.py)
     nblist              list all noteboks (that are not in EXCLUDE_DIRS
     convert             convert .ipynb files to .nbpy.py files
 

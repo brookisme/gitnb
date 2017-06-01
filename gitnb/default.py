@@ -1,7 +1,7 @@
 import os
 import re
-import nb_git.config as con
-import nb_git.utils as utils
+import gitnb.config as con
+import gitnb.utils as utils
 
 
 

@@ -1,27 +1,27 @@
 from distutils.core import setup
 setup(
-  name = 'nb_git',
-  packages = ['nb_git'],
+  name = 'gitnb',
+  packages = ['gitnb'],
   version = '0.0.0.11',
   description = 'Git Tracking for Python Notebooks',
   author = 'Brookie Guzder-Williams',
   author_email = 'brook.williams@gmail.com',
-  url = 'https://github.com/brookisme/nb_git',
-  download_url = 'https://github.com/brookisme/nb_git/tarball/0.1',
+  url = 'https://github.com/brookisme/gitnb',
+  download_url = 'https://github.com/brookisme/gitnb/tarball/0.1',
   keywords = ['ipython', 'notebook','git'],
   include_package_data=True,
   data_files=[
     ('config',[
-        'nb_git/default.config.yaml',
-        'nb_git/dot_nb_git/notebooks',
-        'nb_git/dot_nb_git/precommit'
+        'gitnb/default.config.yaml',
+        'gitnb/dot_gitnb/notebooks',
+        'gitnb/dot_gitnb/precommit'
       ]
     )
   ],
   classifiers = [],
   entry_points={
       'console_scripts': [
-          'nb_git=nb_git:main',
+          'gitnb=gitnb:main',
       ],
   }
 )

@@ -1,9 +1,9 @@
 import os
 import re
-import nb_git.utils as utils
-import nb_git.config as con
-from nb_git.topy import NB2Py
-from nb_git.paths import *
+import gitnb.utils as utils
+import gitnb.config as con
+from gitnb.topy import NB2Py
+from gitnb.paths import *
 
 
 #
@@ -15,9 +15,9 @@ NOTEBOOKS_FMT='{} {} {}'
 
 
 #
-# NBGitProject:
+# GitNBProject:
 #
-class NBGitProject(object):
+class GitNBProject(object):
     
 
     #
@@ -25,30 +25,30 @@ class NBGitProject(object):
     #
     @staticmethod
     def initialize():
-        """ Installs NBGIT
+        """ Installs GITNB
             - installs git pre-commit hook
-            - creates .nb_git dir
+            - creates .gitnb dir
         """
         if os.path.isfile(GIT_PC):
-            nb_match=utils.nb_matching_lines('nb_git',GIT_PC)
+            nb_match=utils.nb_matching_lines('gitnb',GIT_PC)
         else:
             nb_match=0
         if nb_match>0:
-            print("\nnb_git[WARNING]:")
-            print("\tit appears you have already initialized nb_git for")
+            print("\ngitnb[WARNING]:")
+            print("\tit appears you have already initialized gitnb for")
             print("\tthis project. verify: cat .git/hooks/pre-commit\n")
         else:
             if os.path.exists(GIT_DIR):
-                cmd1='cp -R {} {}'.format(DOT_NBGIT_CONFIG_DIR,NBGIT_CONFIG_DIR)
+                cmd1='cp -R {} {}'.format(DOT_GITNB_CONFIG_DIR,GITNB_CONFIG_DIR)
                 os.system(cmd1)
                 utils.copy_append(PRECOMMIT_SCRIPT,GIT_PC)
                 cmd2='chmod +x {}'.format(GIT_PC)
                 os.system(cmd2)
-                print("\nnb_git: INSTALLED ")
+                print("\ngitnb: INSTALLED ")
                 print("\t - nbpy.py files will be created/updated/tracked")
-                print("\t - install user config with: $ nb_git configure\n")
+                print("\t - install user config with: $ gitnb configure\n")
             else:
-                print("nb_git: MUST INITIALIZE GIT")
+                print("gitnb: MUST INITIALIZE GIT")
 
 
     @staticmethod
@@ -57,7 +57,7 @@ class NBGitProject(object):
             allows user to change config
         """
         utils.copy_append(DEFAULT_CONFIG,USER_CONFIG,'w')
-        print("nb_git: USER CONFIG FILE ADDED ({}) ".format(USER_CONFIG))
+        print("gitnb: USER CONFIG FILE ADDED ({}) ".format(USER_CONFIG))
 
 
     
@@ -121,7 +121,7 @@ class NBGitProject(object):
                 if os.path.isfile(path):
                     nbpy_path=NB2Py(path,nbpy_path).convert()
                     self._append_notebooks(path,nbpy_path)
-                    if con.fig('GIT_ADD_ON_NB_GIT_ADD'):
+                    if con.fig('GIT_ADD_ON_GitNB_ADD'):
                         utils.git_add(nbpy_path)
                 else:
                     msg='notebook ({}) does not exist'.format(path)
@@ -160,8 +160,8 @@ class NBGitProject(object):
         
 
     def _out(self,msg,level=None):
-        if level: info="nbgit[{}]".format(level)
-        else: info="nbgit"
+        if level: info="gitnb[{}]".format(level)
+        else: info="gitnb"
         print("{}: {}".format(info,msg))
 
 

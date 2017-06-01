@@ -6,12 +6,12 @@
 
 # """ NBPY_DIR/CREATE_DIRS
 #
-#      GIT_ADD_ON_NB_GIT_ADD: call `git add` for new nbpy files
+#      GIT_ADD_ON_GitNB_ADD: call `git add` for new nbpy files
 #      UPDATE_ON_COMMIT: update all tracked files before `git commit`
-#      AUTO_TRACK_ALL_NOTEBOOKS: `nb_git add` all notebooks before `git commit`
+#      AUTO_TRACK_ALL_NOTEBOOKS: `gitnb add` all notebooks before `git commit`
 #
 # """
-GIT_ADD_ON_NB_GIT_ADD: True
+GIT_ADD_ON_GitNB_ADD: True
 UPDATE_ON_COMMIT: True
 AUTO_TRACK_ALL_NOTEBOOKS: False
 
@@ -39,7 +39,7 @@ NBPY_NB_DIR: nbpy_nb
 CREATE_DIRS: True
 
 # """ EXCLUDE_DIRS
-#     - list of directories to exclude when using nb_git.convert_all
+#     - list of directories to exclude when using gitnb.convert_all
 # """
 EXCLUDE_DIRS:
     - .ipynb_checkpoints

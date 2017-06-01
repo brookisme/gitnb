@@ -1,6 +1,6 @@
 import os
 import yaml
-import nb_git.paths as paths
+import gitnb.paths as paths
 
 #
 # LOAD USER CONFIG
