@@ -2,9 +2,15 @@
 
 **GIT TRACKING FOR PYTHON NOTEBOOKS**
 
+1. [Quick Start](#quick)
+2. [Install](#install)
+3. [Docs](#docs)
+
 NBGIT doesn't actually track python notebooks. Instead, NGIT creates and updates python versions of your notebooks which are in turn tracked by git.
 
-Lets start with an example:
+_____
+<a name='quick'></a>
+#### QUICK START:
 
 First we initialize a git repo containing python notebooks (we have (git)ignored `\*.ipynb`, `.ipynb_checkpoints`):
 
@@ -182,8 +188,8 @@ index e80204b..955b359 100644
      else:
 
 # lets fix that too!
-test|master $ git commit -am "fixed bug: nb-git-update command copied the bug fixes from the ipynb file to the nbpy.py verison of the notebook"
-[master 812a4f0] fixed bug: nb-git-update command copied the bug fixes from the ipynb file to the nbpy.py verison of the notebook
+test|master $ git commit -am "fixed bug: i fixed .ipynb, nb_git fixed .nbpy.py"
+[master 812a4f0] fixed bug: i fixed .ipynb, nb_git fixed .nbpy.py
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 ```
@@ -215,4 +221,20 @@ My bugs are back!
 
 ![nbpy_nb/A_BUGGY_NOTEBOOK.nbpy.ipynb](https://github.com/brookisme/nb_git/blob/master/buggy.png)
 
+_____
+<a name='install'></a>
+#### INSTALL:
 
+```bash
+# pip
+pip install nb_git
+
+# or github
+git clone https://github.com/brookisme/nb_git.git
+cd nb_git
+sudo pip install -e .
+```
+
+_____
+<a name='docs'></a>
+#### DOCS:
