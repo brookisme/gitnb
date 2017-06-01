@@ -190,9 +190,10 @@ def _convert_to_nb(path,destination_path=None):
 
 def _print_list(list_type,items):
     if items:
-        print('gitnb[{}]'.format(list_type))
+        print('\ngitnb[{}]:'.format(list_type))
         for item in items:
             print('\t{}'.format(item))
+        print('')
 
 
 

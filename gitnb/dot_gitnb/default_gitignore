@@ -14,7 +14,6 @@
 
 # nbgit files
 .gitnb/
-nbpy/
 nbpy_nb/ 
 
 

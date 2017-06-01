@@ -44,6 +44,7 @@ CREATE_DIRS: True
 EXCLUDE_DIRS:
     - .ipynb_checkpoints
     - .git
+    - .gitnb
     - nbpy_nb
 
 # """ NBPY(_NB)_IDENT

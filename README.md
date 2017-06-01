@@ -2,16 +2,16 @@
 
 **GIT TRACKING FOR PYTHON NOTEBOOKS**
 
+A simple idea: GitNB doesn't actually track python notebooks. Instead, GitNB creates and updates python versions of your notebooks which are in turn tracked by git.
+
 1. [Quick Start](#quick)
 2. [Install](#install)
 3. [Docs](#docs)
 4. [User Config](#config)
 
-GITNB doesn't actually track python notebooks. Instead, NGIT creates and updates python versions of your notebooks which are in turn tracked by git.
-
 _____
 <a name='quick'></a>
-#### QUICK START:
+### QUICK START:
 
 This quick-start is just an example. It looks long (due to bash-output) but its quick: 1-2 minutes tops.
 
@@ -38,12 +38,7 @@ Initialized empty Git repository in /Users/brook/code/jupyter/gitnb/test/.git/
 test| $ git add .
 
 test| $ git commit -am "Initial Commit: python files"
-[master (root-commit) b29b6c4] Initial Commit: python files
- 4 files changed, 10 insertions(+)
- create mode 100644 .gitignore
- create mode 100644 another_python_file.py
- create mode 100644 some_python_file.py
- create mode 100644 widget/widget.py
+[master (root-commit) b29b6c4] ...
 ```
 
 
@@ -60,7 +55,8 @@ gitnb: INSTALLED
 
 # lets list our (untracked) notebooks
 test|master $ gitnb list
-gitnb[untracked]
+
+gitnb[untracked]:
   Py2NB.ipynb
   A-Notebook.ipynb
   widget/I have spaces in my name.ipynb
@@ -76,7 +72,7 @@ test|master $ gitnb add widget
 gitnb: add (widget/I have spaces in my name.ipynb | nbpy/I have spaces in my name.nbpy.py)
 gitnb: add (widget/Notebook1.ipynb | nbpy/Notebook1.nbpy.py)
 
-# you can see we now have python versions of these notebooks
+# the default directory for the python versions of the notebooks is nbpy/
 test|master $ tree
 .
 ├── A-Notebook.ipynb
@@ -97,11 +93,13 @@ test|master $ tree
 
 # our list now conatins tracked and untracked notebooks
 test|master $ gitnb list
-gitnb[tracked]
+
+gitnb[tracked]:
   widget/Notebook1.ipynb
   widget/I have spaces in my name.ipynb
   A_BUGGY_NOTEBOOK.ipynb
-gitnb[untracked]
+
+gitnb[untracked]:
   A-Notebook.ipynb
   Py2NB.ipynb
 
@@ -117,11 +115,7 @@ Changes to be committed:
 
 # lets commit them
 test|master $ git commit -am "add nbpy.py versions of notebooks"
-[master 868b0a2] add nbpy.py versions of notebooks
- 3 files changed, 98 insertions(+)
- create mode 100644 nbpy/A_BUGGY_NOTEBOOK.nbpy.py
- create mode 100644 nbpy/I have spaces in my name.nbpy.py
- create mode 100644 nbpy/Notebook1.nbpy.py
+[master 868b0a2] ...
 ```
 
 
@@ -160,7 +154,7 @@ print(feature(True))
 
 D. UPDATE NBPY.PY FILE AFTER EDITING YOUR NOTEBOOK
 
-That notebook is buggy. ...[updating python notebook]... I just went to the python-notebook and fixed the bugs. Let's see what happened:
+That notebook is buggy ...[updating python notebook]... I just went to the python-notebook and fixed the bugs. Let's see what happened:
 
 ```bash
 # note the changes have not appeared in our nbpy.py file
@@ -208,18 +202,13 @@ Finally, lets say we actually need that buggy notebook after all
 ```bash
 test|master $ git checkout 868b0a2
 Note: checking out '868b0a2'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by performing another checkout.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -b with the checkout command again. Example:
-
-  git checkout -b <new-branch-name>
-
+[... git detached head messaging ...]
 HEAD is now at 868b0a2... add nbpy.py versions of notebooks
+
+# create notebook from nbpy.py file
 test|(HEAD detached at 868b0a2) $ gitnb tonb nbpy/A_BUGGY_NOTEBOOK.nbpy.py 
+
+# the default directory for generated notebooks versions is nbpy/
 test|(HEAD detached at 868b0a2) $ tree nbpy_nb
 nbpy_nb
 └── A_BUGGY_NOTEBOOK.nbpy.ipynb
@@ -233,14 +222,14 @@ My bugs are back!
 
 _____
 <a name='install'></a>
-#### INSTALL:
+### INSTALL:
 
-_pip_
+###### pip:
 ```bash
 pip install gitnb
 ```
 
-_github_
+###### github:
 ```
 git clone https://github.com/brookisme/gitnb.git
 cd gitnb
@@ -249,7 +238,7 @@ sudo pip install -e .
 
 _____
 <a name='docs'></a>
-#### DOCS:
+### DOCS:
 
 ```bash
 $ gitnb --help
@@ -303,8 +292,13 @@ _____
 ###### gitignore:
 Update .gitignore:
 
+Appends (or creates) gitignore with the recommended settings. Namely,
+
+* notebooks: *.ipynb, .ipynb_checkpoints
+* gitnb: .gitnb/, nbpy_nb/
+
 ```bash
-TODO: append *.ipynb, .ipynb_checkpoints, nbpy/, nbpy_nb/ into gitignore
+$ gitnb gitignore
 ```
 ([back to methods](#methods))
 
@@ -331,6 +325,7 @@ positional arguments:
 
 _____
 <a name='add'></a>
+###### add:
 Add notebook to gitnb:
 
 * converts notebook(s) to nbpy.py file(s)
@@ -343,7 +338,6 @@ Add notebook to gitnb:
     * default path can be changed with [user config](#config)
     * if path is a direcotry path, default config is always used
 
-###### add:
 ```bash
 $ gitnb add --help
 usage: gitnb add [-h] path [destination_path]
@@ -433,7 +427,7 @@ positional arguments:
 
 _____
 <a name='config'></a>
-#### USER CONFIG:
+### USER CONFIG:
 
 The [configure](#configure) method installs `gitnb.config.yaml` in your root directory.  This is a copy of the [default config](https://github.com/brookisme/gitnb/blob/master/gitnb/default.config.yaml). Note at anytime you can go back to the default configuration by simply deleting the user config file (`gitnb.config.yaml`).
 
