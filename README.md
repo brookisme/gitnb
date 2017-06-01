@@ -113,7 +113,7 @@ Changes to be committed:
   new file:   nbpy/I have spaces in my name.nbpy.py
   new file:   nbpy/Notebook1.nbpy.py
 
-# lets commit them
+# git commit the new nbpy.py versions
 test|master $ git commit -am "add nbpy.py versions of notebooks"
 [master 868b0a2] ...
 ```
@@ -182,11 +182,12 @@ gitnb[diff]: A_BUGGY_NOTEBOOK.ipynb[->nbpy.py] - nbpy/A_BUGGY_NOTEBOOK.nbpy.py
      else:
 
 
-# Lets save those changes to our nbpy.py file. 
-# "gitnb update" updates your tracked files
+# we now use 'gitnb update' to update the tracked files
+# this creates a new nbpy.py version and adds the changes
+# to the git repo
 test|master $ gitnb update
 
-# now we can see the bug fixes with "git diff"
+# now we can see the bug fixes with 'git diff'
 test|master $ git diff
 diff --git a/nbpy/A_BUGGY_NOTEBOOK.nbpy.py b/nbpy/A_BUGGY_NOTEBOOK.nbpy.py
 index e80204b..955b359 100644
@@ -211,11 +212,9 @@ index e80204b..955b359 100644
          return "I am not a bug"
      else:
 
-# lets fix that too!
+# commit the changes
 test|master $ git commit -am "fixed bug: i fixed .ipynb, gitnb fixed .nbpy.py"
-[master 812a4f0] fixed bug: i fixed .ipynb, gitnb fixed .nbpy.py
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
+[master 812a4f0] ...
 ```
 
 E. CREATE PYTHON-NOTEBOOK FROM NBPY.PY FILE
