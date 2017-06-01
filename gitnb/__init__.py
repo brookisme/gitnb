@@ -114,7 +114,7 @@ def add(path,destination_path=None):
     """ 
         - Convert Notebook to NBPY FILE
         - Add to Notebooks list: .gitnb/notebooks
-        - Add NBPY file to git repo (if GIT_ADD_ON_GitNB_ADD=True)
+        - Add NBPY file to git repo (if GIT_ADD_ON_GITNB_ADD=True)
     """
     nbpy_path=_safe_path_exec(
         GNB().add,

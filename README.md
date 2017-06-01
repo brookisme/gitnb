@@ -460,7 +460,7 @@ The [configure](#configure) method installs `gitnb.config.yaml` in your root dir
 
 There are comment-docs in the config file that should explain what each configuration control.  However I thought I'd touch a couple of the perhaps more interesting configurations here.
 
-##### GIT_ADD_ON_GitNB_ADD (defaults to True):
+##### GIT_ADD_ON_GITNB_ADD (defaults to True):
 
 If True the [add](#add) method will perform a `git add` after creating the nbpy file and adding it to the gitnb tracking list.  You can set this to False if you want to explicity call `git add` yourself after looking over the file.
 

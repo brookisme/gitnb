@@ -108,8 +108,10 @@ class GitNBProject(object):
     def update(self):
         for path,nbpy_path in self.notebooks().iteritems():
             NB2Py(path,nbpy_path).convert()
+            if con.fig('GIT_ADD_ON_GITNB_UPDATE'):
+                utils.git_add(nbpy_path)
 
-    
+
     def add(self,path,nbpy_path=None):
         msg=None
         added_file=False
@@ -121,7 +123,7 @@ class GitNBProject(object):
                 if os.path.isfile(path):
                     nbpy_path=NB2Py(path,nbpy_path).convert()
                     self._append_notebooks(path,nbpy_path)
-                    if con.fig('GIT_ADD_ON_GitNB_ADD'):
+                    if con.fig('GIT_ADD_ON_GITNB_ADD'):
                         utils.git_add(nbpy_path)
                 else:
                     msg='notebook ({}) does not exist'.format(path)
