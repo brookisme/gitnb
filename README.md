@@ -289,7 +289,7 @@ test| $ gitnb configure
 gitnb: USER CONFIG FILE ADDED (./gitnb.config.yaml) 
 ```
 
-...go update gitnb.config.yaml...
+... go update gitnb.config.yaml ...
 
 ```bash
 test| $ gitnb commit -am "Initial Commit with everything"
