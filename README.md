@@ -275,7 +275,7 @@ Now each time I `gitnb commit`:
 
 Note: the `--allow-empty` flag is there because the at the time of the commit (before the nbpy.py files are generated there may or may not be changes to commit)
 
-Here's the super-quick-quick-start-example
+Here's the super-quick-quick-start-example:
 ```bash
 test|master $ git init
 Initialized empty Git repository in /Users/brook/code/jupyter/gitnb/test/.git/
