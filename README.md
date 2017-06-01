@@ -163,12 +163,30 @@ test|master $ git diff
 # however, we can see the changes with 'gitnb diff'
 test|master $ gitnb diff A_BUGGY_NOTEBOOK.ipynb
 
+gitnb[diff]: A_BUGGY_NOTEBOOK.ipynb[->nbpy.py] - nbpy/A_BUGGY_NOTEBOOK.nbpy.py
+--- +++ @@ -1,7 +1,7 @@ 
+ 
+ """[markdown]
+-## This is a notebook with bugs
++## This is a notebook without bugs
+ """
+ 
+ 
+@@ -11,7 +11,7 @@ 
+ 
+ """[code]"""
+-def feature(food=True):
++def feature(foo=True):
+     if foo:
+         return "I am not a bug"
+     else:
 
 
-# `gitnb update` updates your tracked files
+# Lets save those changes to our nbpy.py file. 
+# "gitnb update" updates your tracked files
 test|master $ gitnb update
 
-# now we can see the bug fixes
+# now we can see the bug fixes with "git diff"
 test|master $ git diff
 diff --git a/nbpy/A_BUGGY_NOTEBOOK.nbpy.py b/nbpy/A_BUGGY_NOTEBOOK.nbpy.py
 index e80204b..955b359 100644

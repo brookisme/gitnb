@@ -67,7 +67,7 @@ def gitignore():
         print("\tverify: cat .gitignore\n")
     else:
         utils.copy_append(paths.DEFAULT_GITIGNORE,GITIGNORE)
-        print("\ngitnb: appened user .gitignore with defaults")
+        print("gitnb: appened user .gitignore with defaults")
 
 
 def diff(path):
@@ -213,7 +213,7 @@ def _print_file_diff(path_a,path_b):
             file_a.readlines(), 
             file_b.readlines(), 
             lineterm='')
-        print('\n'.join(list(diff)))
+        print(''.join(list(diff)))
 
 
 #######################################################
