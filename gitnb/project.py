@@ -18,8 +18,6 @@ NOTEBOOKS_FMT='{} {} {}'
 # GitNBProject:
 #
 class GitNBProject(object):
-    
-
     #
     # STATIC METHODS
     #
