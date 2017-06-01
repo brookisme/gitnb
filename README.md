@@ -466,7 +466,7 @@ If True the [add](#add) method will perform a `git add` after creating the nbpy 
 
 ##### UPDATE_ON_COMMIT (defaults to True):
 
-If True, the ng_git [update](#update) method will automatically be called when performing a `git commit` (during pre-commit hook).
+If True, the gitnb [update](#update) method will automatically be called when performing a `git commit` (during pre-commit hook).
 
 ##### AUTO_TRACK_ALL_NOTEBOOKS (defaults to False):
 

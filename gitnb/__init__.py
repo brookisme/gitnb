@@ -52,7 +52,7 @@ def gitignore():
         ignore:
             - ipynb_checkpoints/
             - *.ipynb
-            - .ng_git/
+            - .gitnb/
             - nbpy/
             - nbpy_nb/
     """ 
