@@ -160,6 +160,11 @@ That notebook is buggy ...[updating python notebook]... I just went to the pytho
 # note the changes have not appeared in our nbpy.py file
 test|master $ git diff
 
+# however, we can see the changes with 'gitnb diff'
+test|master $ gitnb diff A_BUGGY_NOTEBOOK.ipynb
+
+
+
 # `gitnb update` updates your tracked files
 test|master $ gitnb update
 
@@ -382,8 +387,13 @@ $ gitnb update
 _____
 <a name='diff'></a>
 ###### diff:
+Diff for recent changes.
+
+Creates a diff between the most recent nbpy.py version of the noteboook
+and the nbpy.py version of the notebook in its current state (the working copy).
+
 ```bash
-TODO: DIFF CURRENT AND LAST
+$ gitnb diff <PATH-TO-NOTEBOOK(.ipynb)-FILE>
 ```
 ([back to methods](#methods))
 
