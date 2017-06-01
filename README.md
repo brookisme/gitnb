@@ -235,11 +235,13 @@ _____
 <a name='install'></a>
 #### INSTALL:
 
+_pip_
 ```bash
-# pip
 pip install nb_git
+```
 
-# or github
+_github_
+```
 git clone https://github.com/brookisme/nb_git.git
 cd nb_git
 sudo pip install -e .
