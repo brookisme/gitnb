@@ -13,7 +13,7 @@ _____
 <a name='quick'></a>
 #### QUICK START:
 
-This quick-start is just an example. It looks long (due to bash-output) but its quick: 2 minute tops.
+This quick-start is just an example. It looks long (due to bash-output) but its quick: 1-2 minutes tops.
 
 A. INITIALIZE GIT REPO
 
