@@ -238,3 +238,88 @@ sudo pip install -e .
 _____
 <a name='docs'></a>
 #### DOCS:
+
+<a name='methods'></a>
+###### methods:
+
+1. [init](#init)
+2. [configure](#configure)
+3. [gitignore](#gitignore)
+4. [list](#list)
+5. [add](#add)
+6. [remove](#remove)
+7. [update](#update)
+8. [diff](#diff)
+9. [topy](#topy)
+10. [tonb](#tonb)
+
+_____
+<a name='init'></a>
+###### init:
+```bash
+```
+([back to methods])(#methods)
+
+_____
+<a name='configure'></a>
+###### configure:
+```bash
+```
+([back to methods])(#methods)
+
+_____
+<a name='gitignore'></a>
+###### gitignore:
+```bash
+```
+([back to methods])(#methods)
+
+_____
+<a name='list'></a>
+###### list:
+```bash
+```
+([back to methods])(#methods)
+
+_____
+<a name='add'></a>
+###### add:
+```bash
+```
+([back to methods])(#methods)
+
+_____
+<a name='remove'></a>
+###### remove:
+```bash
+```
+([back to methods])(#methods)
+
+_____
+<a name='update'></a>
+###### update:
+```bash
+```
+([back to methods])(#methods)
+
+_____
+<a name='diff'></a>
+###### diff:
+```bash
+```
+([back to methods])(#methods)
+
+_____
+<a name='topy'></a>
+###### topy:
+```bash
+```
+([back to methods])(#methods)
+
+_____
+<a name='tonb'></a>
+###### tonb:
+```bash
+```
+([back to methods])(#methods)
+
