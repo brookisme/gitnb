@@ -275,6 +275,52 @@ Now each time I `gitnb commit`:
 
 Note: the `--allow-empty` flag is there because the at the time of the commit (before the nbpy.py files are generated there may or may not be changes to commit)
 
+Here's the super-quick-quick-start-example
+```bash
+test|master $ git init
+Initialized empty Git repository in /Users/brook/code/jupyter/gitnb/test/.git/
+test| $ gitnb init
+
+gitnb: INSTALLED 
+   - nbpy.py files will be created/updated/tracked
+   - install user config with: $ gitnb configure
+   
+test| $ gitnb configure
+gitnb: USER CONFIG FILE ADDED (./gitnb.config.yaml) 
+```
+
+... go update user config...
+
+```bash
+test| $ gitnb commit -am "Initial Commit with everything"
+gitnb: add (A-Notebook.ipynb | nbpy/A-Notebook.nbpy.py)
+gitnb: add (A_BUGGY_NOTEBOOK.ipynb | nbpy/A_BUGGY_NOTEBOOK.nbpy.py)
+gitnb: add (Py2NB.ipynb | nbpy/Py2NB.nbpy.py)
+gitnb: add (widget/I have spaces in my name.ipynb | nbpy/I have spaces in my name.nbpy.py)
+gitnb: add (widget/Notebook1.ipynb | nbpy/Notebook1.nbpy.py)
+[master (root-commit) cb8c106] ...
+
+test|master $ tree
+.
+├── A-Notebook.ipynb
+├── A_BUGGY_NOTEBOOK.ipynb
+├── Py2NB.ipynb
+├── another_python_file.py
+├── gitnb.config.yaml
+├── nbpy
+│   ├── A-Notebook.nbpy.py
+│   ├── A_BUGGY_NOTEBOOK.nbpy.py
+│   ├── I\ have\ spaces\ in\ my\ name.nbpy.py
+│   ├── Notebook1.nbpy.py
+│   └── Py2NB.nbpy.py
+├── some_python_file.py
+└── widget
+    ├── I\ have\ spaces\ in\ my\ name.ipynb
+    ├── Notebook1.ipynb
+    └── widget.py
+
+2 directories, 14 files
+```
 _____
 <a name='install'></a>
 ### INSTALL:
