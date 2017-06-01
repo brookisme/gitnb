@@ -442,8 +442,8 @@ Update and Commit:
 
 * if (UPDATE_ON_GITNB_COMMIT) perform 'gitnb update'
 * call `git commit --allow-empty` with optional flags [a|m]:
-      * -a flag (add all - same as git commit -a)
-      * -m flag (add all - same as git commit -m)
+  - -a flag (add all - same as git commit -a)
+  - -m flag (add all - same as git commit -m)
 
 ```bash
 $ gitnb commit [-a] [-m "COMMIT MESSAGE"]
