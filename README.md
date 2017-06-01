@@ -284,12 +284,12 @@ test| $ gitnb init
 gitnb: INSTALLED 
    - nbpy.py files will be created/updated/tracked
    - install user config with: $ gitnb configure
-   
+
 test| $ gitnb configure
 gitnb: USER CONFIG FILE ADDED (./gitnb.config.yaml) 
 ```
 
-... go update user config...
+...go update gitnb.config.yaml...
 
 ```bash
 test| $ gitnb commit -am "Initial Commit with everything"
