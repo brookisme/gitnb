@@ -160,7 +160,7 @@ print(feature(True))
 
 D. UPDATE NBPY.PY FILE AFTER EDITING YOUR NOTEBOOK
 
-That notebook is buggy. ...<updating python notebook>... I just went to the python-notebook and fixed the bugs. Let's see what happened:
+That notebook is buggy. ...[updating python notebook]... I just went to the python-notebook and fixed the bugs. Let's see what happened:
 
 ```bash
 # note the changes have not appeared in our nbpy.py file
