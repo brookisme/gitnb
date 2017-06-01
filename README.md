@@ -490,6 +490,7 @@ Update and Commit:
 * call `git commit --allow-empty` with optional flags [a|m]:
   - -a flag (add all - same as git commit -a)
   - -m flag (add all - same as git commit -m)
+  - note: `--allow-empty` because the nbpy files are not yet updated
 
 ```bash
 #
