@@ -5,6 +5,7 @@
 1. [Quick Start](#quick)
 2. [Install](#install)
 3. [Docs](#docs)
+4. [User Config](#config)
 
 NBGIT doesn't actually track python notebooks. Instead, NGIT creates and updates python versions of your notebooks which are in turn tracked by git.
 
@@ -239,6 +240,11 @@ _____
 <a name='docs'></a>
 #### DOCS:
 
+```bash
+$ nb_git --help
+usage: nb_git [-h] {init,configure,list,update,add,remove,topy,tonb} ...
+```
+
 <a name='methods'></a>
 ###### methods:
 
@@ -249,35 +255,66 @@ _____
 5. [add](#add): begin tracking notebook
 6. [remove](#remove): stop tracking notebook
 7. [update](#update): update nbpy.py files with recent notebook edits
-8. [diff](#diff): perform diff between current notebook version and last [update](updated)-ed version
+8. [diff](#diff): perform diff between current notebook version and last [update](#update)-ed version
 9. [topy](#topy): convert notebook to nbpy.py file (without [add](#add)-ing)
 10. [tonb](#tonb): convert nbpy.py file to python notebook
 
 _____
 <a name='init'></a>
+
 ###### init:
+Initialize Project:
+
+* `git init` required before `nb_git init`
+* installs .nb_git directory at the project root
+* creates or appends .git/hooks/pre-commit for auto-tracking config
+
 ```bash
+nb_git init
 ```
 ([back to methods](#methods))
 
 _____
 <a name='configure'></a>
 ###### configure:
+Install Config:
+
+* optional: only necesary if you want to change the [default config](https://github.com/brookisme/nb_git/blob/master/nb_git/default.config.yaml)
+* installs nb_git.config.yaml directory at the project root
+
 ```bash
+nb_git configure
 ```
 ([back to methods](#methods))
 
 _____
 <a name='gitignore'></a>
 ###### gitignore:
+Update .gitignore:
+
 ```bash
+TODO: append *.ipynb, .ipynb_checkpoints, nbpy/, nbpy_nb/ into gitignore
 ```
 ([back to methods](#methods))
 
 _____
 <a name='list'></a>
 ###### list:
+List Project Notebooks, or nbpy.py files
+
+positional arg (type):
+
+* (default) all: list tracked and untracked notebooks
+* tracked: list tracked notebooks
+* untracked: list untracked notebooks
+* nbpy: list nbpy.py files
+ 
 ```bash
+nbgit-repo|master $ nb_git list --help
+usage: nb_git list [-h] [type]
+
+positional arguments:
+  type        notebooks: ( all | tracked | untracked ), or nbpy
 ```
 ([back to methods](#methods))
 
@@ -306,6 +343,7 @@ _____
 <a name='diff'></a>
 ###### diff:
 ```bash
+TODO: DIFF CURRENT AND LAST
 ```
 ([back to methods](#methods))
 
