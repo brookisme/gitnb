@@ -13,7 +13,7 @@ _____
 <a name='quick'></a>
 #### QUICK START:
 
-First we initialize a git repo containing python notebooks (we have (git)ignored `\*.ipynb`, `.ipynb_checkpoints`):
+This quick-start is just an example. It looks long, but its not. There's 
 
 ```bash
 test| $ tree
@@ -44,17 +44,16 @@ test| $ git commit -am "Initial Commit: python files"
 
 Now we set up NBGIT
 
-1. initialize nb_git
-2. list existing notebooks
-3. add the notebooks we want to track
-
 ```bash
+
+# initialize nb_git
 test|master $ nb_git init
 
 nb_git: INSTALLED 
    - nbpy.py files will be created/updated/tracked
    - install user config with: $ nb_git configure
 
+# lets list our (untracked) notebooks
 test|master $ nb_git list
 nb_git[untracked]
   Py2NB.ipynb
@@ -120,7 +119,6 @@ test|master $ git commit -am "add nbpy.py versions of notebooks"
  create mode 100644 nbpy/Notebook1.nbpy.py
 ```
 
-
 Oh No! One of our notebooks is buggy.  Let's look at the `nbpy.py` version of the notebook
 
 ```bash
@@ -152,7 +150,6 @@ print(feature(True))
 """"""
 
 ```
-
 
 I just went to the python-notebook and fixed the bugs
 
@@ -196,6 +193,7 @@ test|master $ git commit -am "fixed bug: i fixed .ipynb, nb_git fixed .nbpy.py"
 ```
 
 Finally, lets say we actually need that buggy notebook after all
+
 ```bash
 test|master $ git checkout 868b0a2
 Note: checking out '868b0a2'.
@@ -418,4 +416,36 @@ positional arguments:
   destination_path  if falsey uses default destination path
 ```
 ([back to methods](#methods))
+
+
+_____
+<a name='config'></a>
+#### USER CONFIG:
+
+The [configure](#configure) method installs `nb_git.config.yaml` in your root directory.  This is a copy of the [default config](https://github.com/brookisme/nb_git/blob/master/nb_git/default.config.yaml). Note at anytime you can go back to the default configuration by simply deleting the user config file (`nb_git.config.yaml`).
+
+There are comment-docs in the config file that should explain what each configuration control.  However I thought I'd touch a couple of the perhaps more interesting configurations here.
+
+##### GIT_ADD_ON_NB_GIT_ADD (defaults to True):
+
+If True the [add](#add) method will perform a `git add` after creating the nbpy file and adding it to the nb_git tracking list.  You can set this to False if you want to explicity call `git add` yourself after looking over the file.
+
+##### UPDATE_ON_COMMIT (defaults to True):
+
+If True, the ng_git [update](#update) method will automatically be called when performing a `git commit` (during pre-commit hook).
+
+##### AUTO_TRACK_ALL_NOTEBOOKS (defaults to False):
+
+If True, `nb_git add .` (see [add](#add) method) will automatically be called when performing a `git commit` (during pre-commit hook). This will add all notebooks in your project to nb_git.
+
+_Note if the only thing that has changed is your notebooks, you'll still need to explicity call `nb_git update` or add the `--allow-empty` flag to your `git commit`._
+
+##### EXCLUDE_DIRS:
+
+A list of directories not to include when searching for notebooks
+
+##### OTHER:
+
+You can also configure, default location for new files, if they include an indentifier (like 'nbpy' in `somefile.nbpy.py`), spacing in nbpy files and more. Check the comment-docs for more info.
+
 
