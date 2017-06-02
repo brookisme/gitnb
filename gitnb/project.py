@@ -104,7 +104,7 @@ class GitNBProject(object):
 
 
     def update(self):
-        for path,nbpy_path in self.notebooks().iteritems():
+        for path,nbpy_path in self.notebooks().items():
             NB2Py(path,nbpy_path).convert()
             if con.fig('GIT_ADD_ON_GITNB_UPDATE'):
                 utils.git_add(nbpy_path)
