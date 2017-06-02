@@ -13,7 +13,6 @@
 .ipynb_checkpoints
 
 # nbgit files
-.gitnb/
 nbpy_nb/ 
 
 

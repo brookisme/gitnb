@@ -394,10 +394,12 @@ _____
 ###### gitignore:
 Update .gitignore:
 
+
+
 Appends (or creates) gitignore with the recommended settings. Namely,
 
 * notebooks: *.ipynb, .ipynb_checkpoints
-* gitnb: .gitnb/, nbpy_nb/
+* gitnb: nbpy_nb/
 
 ```bash
 $ gitnb gitignore
