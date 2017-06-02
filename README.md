@@ -268,8 +268,8 @@ AUTO_TRACK_ALL_NOTEBOOKS: True
 
 Now each time I `gitnb commit`:
 
-* All new notebooks are [add](#add)ed to be tracked by gitnb
-* All notebooks are [update](#update)ed
+* All new notebooks are [add](#add)-ed to be tracked by gitnb
+* All notebooks are [update](#update)-ed
 * All changes are added to the git repo
 * `git commit --allow-empty` is [called](#commit)
 
