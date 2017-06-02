@@ -65,13 +65,9 @@ def nb_matching_lines(grep,path):
     """ count lines without match in file
         returns int
     """
-    lines=readlines(path)
+    lines=read_lines(path)
     lines=[line for line in lines if grep in line]
     return len(lines)
-    # safe_path="'{}'".format(path)
-    # cmd="cat {} | grep {} | wc -l".format(safe_path,grep)
-    # out=subprocess.check_output(cmd, shell=True)
-    # return int(out.strip(' ').strip('\n'))
 
 
 
