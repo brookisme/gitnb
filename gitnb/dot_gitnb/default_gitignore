@@ -14,6 +14,7 @@
 
 # nbgit files
 nbpy_nb/ 
+.gitnb/notebooks.bak
 
 
 
