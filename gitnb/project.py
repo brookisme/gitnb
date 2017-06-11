@@ -105,9 +105,13 @@ class GitNBProject(object):
 
     def update(self):
         for path,nbpy_path in self.notebooks().items():
-            NB2Py(path,nbpy_path).convert()
-            if con.fig('GIT_ADD_ON_GITNB_UPDATE'):
-                utils.git_add(nbpy_path)
+            if os.path.isfile(path):
+                NB2Py(path,nbpy_path).convert()
+                if con.fig('GIT_ADD_ON_GITNB_UPDATE'):
+                    utils.git_add(nbpy_path)
+            else:
+                msg='tracked notebook {} is not in local system'.format(path)
+                print('gitnb[update]: {}'.format(msg))
 
 
     def add(self,path,nbpy_path=None):
