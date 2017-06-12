@@ -77,7 +77,7 @@ def diff(path):
     """
     nbpy_path=GNB().notebooks().get(path)
     if nbpy_path:
-        _convert_to_py(path,DIFF_TMP_PATH,False)
+        NB2Py(path,DIFF_TMP_PATH).convert()  
         print("\ngitnb[diff]: {}[->nbpy.py] - {}".format(path,nbpy_path))
         _print_file_diff(nbpy_path,DIFF_TMP_PATH)
         os.remove(DIFF_TMP_PATH)
@@ -140,21 +140,16 @@ def remove(path):
 def topy(path,destination_path=None):
     """ Convert Notebook to Py
     """
-    return _safe_path_exec(
-        _convert_to_py,
-        'topy',
-        path,
-        destination_path)
+    print('\ngitnb[topy]:'.format(path))
+    print('\tPlease note that you are creating a nbpy file but')
+    print('\tnot tracking it. To track the file use "gitnb add"\n')
+    return NB2Py(path,destination_path).convert()  
 
 
 def tonb(nb_path,nbpy_path=None):
     """ Convert NBPy to Noteook
     """
-    return _safe_path_exec(
-        _convert_to_nb,
-        'tonb',
-        nbpy_path,
-        nb_path)
+    return Py2NB(nb_path,nbpy_path).convert()
 
 
 def commit(param_list):
@@ -172,7 +167,7 @@ def commit(param_list):
 #
 # HELPERS
 #
-def _safe_path_exec(func,action,path,destination_path=None,path_safe=False):
+def _safe_path_exec(func,action,path,destination_path=None):
     if os.path.isfile(path):
         _exec(func,path,destination_path)
     elif os.path.isdir(path):
@@ -196,18 +191,6 @@ def _exec(func,path,destination_path=None):
         func(path)
     else:
         func(path,destination_path)
-
-
-def _convert_to_py(path,destination_path=None,warn=True):
-    if warn:
-        print('\ngitnb[topy]:'.format(path))
-        print('\tPlease note that you are creating a nbpy file but')
-        print('\tnot tracking it. To track the file use "gitnb add"\n')
-    NB2Py(path,destination_path).convert()
-
-
-def _convert_to_nb(nbpy_path,nb_path=None):
-    Py2NB(nb_path,nbpy_path).convert()
 
 
 def _print_list(list_type,items):
