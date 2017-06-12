@@ -146,10 +146,10 @@ def topy(path,destination_path=None):
     return NB2Py(path,destination_path).convert()  
 
 
-def tonb(nb_path,nbpy_path=None):
+def tonb(path,destination_path=None):
     """ Convert NBPy to Noteook
     """
-    return Py2NB(nb_path,nbpy_path).convert()
+    return Py2NB(path,destination_path).convert()
 
 
 def commit(param_list):
@@ -380,7 +380,7 @@ def main():
         'tonb',
         help='tonb .ipynb files to .nbpy.py files')
     parser_tonb.add_argument('path',
-        help='path to ipynb file')   
+        help='tracked path to notebook or nbpy file')   
     parser_tonb.add_argument('destination_path',
         nargs='?',
         default=None,
