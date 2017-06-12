@@ -147,14 +147,14 @@ def topy(path,destination_path=None):
         destination_path)
 
 
-def tonb(path,destination_path=None):
+def tonb(nb_path,nbpy_path=None):
     """ Convert NBPy to Noteook
     """
     return _safe_path_exec(
         _convert_to_nb,
         'tonb',
-        path,
-        destination_path)
+        nbpy_path,
+        nb_path)
 
 
 def commit(param_list):
@@ -172,7 +172,7 @@ def commit(param_list):
 #
 # HELPERS
 #
-def _safe_path_exec(func,action,path,destination_path=None):
+def _safe_path_exec(func,action,path,destination_path=None,path_safe=False):
     if os.path.isfile(path):
         _exec(func,path,destination_path)
     elif os.path.isdir(path):
@@ -206,8 +206,8 @@ def _convert_to_py(path,destination_path=None,warn=True):
     NB2Py(path,destination_path).convert()
 
 
-def _convert_to_nb(path,destination_path=None):
-    Py2NB(path,destination_path).convert()
+def _convert_to_nb(nbpy_path,nb_path=None):
+    Py2NB(nb_path,nbpy_path).convert()
 
 
 def _print_list(list_type,items):
