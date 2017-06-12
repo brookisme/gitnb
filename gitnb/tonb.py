@@ -17,7 +17,7 @@ class Py2NB(object):
     def __init__(self,path,nb_path=None):
         self._init_params()
         self.path=default.nbpy_path(path)
-        self.nb_path=nb_path or default.ipynb_path(path)
+        self.nb_path=nb_path or default.ipynb_path(self.path)
 
 
     def json(self):

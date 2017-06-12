@@ -11,7 +11,7 @@ def nbpy_path(ipynb_path):
         - if NBPY_DIR: put in nbpy_dir
         - else put in same direcotry as file
     """
-    if re.match('\.py$',ipynb_path):
+    if re.search('\.py$',ipynb_path):
         return ipynb_path
     else:
         nbpy_ident=con.fig('NBPY_IDENT')
@@ -31,7 +31,7 @@ def ipynb_path(nbpy_path):
         - if NBPY_NB_DIR: put in nbpy_nb_dir
         - else put in same direcotry as file
     """
-    if re.match('\.py$',nbpy_path):
+    if re.search('\.py$',nbpy_path):
         nbpy_ident=con.fig('NBPY_IDENT')
         nbpy_nb_ident=con.fig('NBPY_NB_IDENT')
         nbpy_nb_dir=con.fig('NBPY_NB_DIR')
